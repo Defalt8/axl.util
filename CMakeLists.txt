@@ -64,6 +64,7 @@ endif()
 # Install
 install( FILES
 	"include/axl.utils/lib.hpp"
+	"include/axl.utils/String.hpp"
 	DESTINATION "${CMAKE_INSTALL_INCDIR}/axl.utils"
 )
 install( TARGETS
