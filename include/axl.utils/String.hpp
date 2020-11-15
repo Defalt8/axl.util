@@ -70,6 +70,7 @@ class String
 		const static char_t*const NullCStr;
 		static char_t*const NullStr;
 		const static char_t NullChar;
+	friend class WString;
 };
 
 } // namespace axl.utils

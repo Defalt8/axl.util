@@ -4,6 +4,7 @@ cmake_minimum_required( VERSION 3.17 )
 add_library( axl.utils ${LIB_TYPE}
 	"lib.cpp"
 	"String.cpp"
+	"WString.cpp"
 )
 # Target compile definitions
 if( "${LIB_TYPE}" STREQUAL "SHARED" )

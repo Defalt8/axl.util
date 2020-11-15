@@ -4,3 +4,4 @@ link_libraries( axl.utils )
 
 add_executable( lib "lib.cpp" )
 add_executable( String "String.cpp" )
+add_executable( WString "WString.cpp" )
