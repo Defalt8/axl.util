@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 			WString::char_t* cwstr = wstr.wstr();
 			Assertv(0 == wcscmp(wstr.cwstr(), L"Hello"), verbose);
 			Assertv(cwstr == wstr.cwstr(), verbose);
-			wstr.~WString();
+			wstr.destroy();
 			Assertv(wstr.cwstr() == WString::NullCWStr, verbose);
 			Assertv(wstr.size() == 0U, verbose);
 			Assertv(wstr.length() == 0U, verbose);
@@ -57,19 +57,19 @@ int main(int argc, char *argv[])
 			Assertv(wstr.length(true) == 0U, verbose);
 		}
 		{ // Sensitive
-			WString wstr(L"Hello");
+			WString wstr(L"Hello World! How are you?");
 			wstr.is_sensitive = true;
 			Assertv(wstr.is_sensitive == true, verbose);
 			WString::char_t* cwstr = wstr.wstr();
-			Assertv(0 == wcscmp(wstr.cwstr(), L"Hello"), verbose);
+			Assertv(0 == wcscmp(wstr.cwstr(), L"Hello World! How are you?"), verbose);
 			Assertv(cwstr == wstr.cwstr(), verbose);
-			wstr.~WString();
+			wstr.destroy();
 			Assertv(wstr.cwstr() == WString::NullCWStr, verbose);
 			Assertv(wstr.size() == 0U, verbose);
 			Assertv(wstr.length() == 0U, verbose);
 			Assertv(wstr.length(false) == 0U, verbose);
 			Assertv(wstr.length(true) == 0U, verbose);
-			Assertv(0 != wcsncmp(cwstr, L"Hello", 6), verbose);
+			Assertv(0 != wcsncmp(cwstr, L"Hello World! How are you?", 6), verbose);
 		}
 	}
 	{ // Constructor tests

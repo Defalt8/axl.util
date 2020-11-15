@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 			String::char_t* cstr = str.str();
 			Assertv(0 == strcmp(str.cstr(), "Hello"), verbose);
 			Assertv(cstr == str.cstr(), verbose);
-			str.~String();
+			str.destroy();
 			Assertv(str.cstr() == String::NullCStr, verbose);
 			Assertv(str.size() == 0U, verbose);
 			Assertv(str.length() == 0U, verbose);
@@ -57,19 +57,19 @@ int main(int argc, char *argv[])
 			Assertv(str.length(true) == 0U, verbose);
 		}
 		{ // Sensitive
-			String str("Hello");
+			String str("Hello World! How are you?");
 			str.is_sensitive = true;
 			Assertv(str.is_sensitive == true, verbose);
 			String::char_t* cstr = str.str();
-			Assertv(0 == strcmp(str.cstr(), "Hello"), verbose);
+			Assertv(0 == strcmp(str.cstr(), "Hello World! How are you?"), verbose);
 			Assertv(cstr == str.cstr(), verbose);
-			str.~String();
+			str.destroy();
 			Assertv(str.cstr() == String::NullCStr, verbose);
 			Assertv(str.size() == 0U, verbose);
 			Assertv(str.length() == 0U, verbose);
 			Assertv(str.length(false) == 0U, verbose);
 			Assertv(str.length(true) == 0U, verbose);
-			Assertv(0 != strncmp(cstr, "Hello", 6), verbose);
+			Assertv(0 != strncmp(cstr, "Hello World! How are you?", 6), verbose);
 		}
 	}
 	{ // Constructor tests

@@ -322,13 +322,21 @@ void String::destroy()
 	{
 		if(is_sensitive)
 		{
-			const size_t frac_size = m_size / sizeof(long);
-			const size_t rem_loc = frac_size * sizeof(long);
-			unsigned long *lp = (unsigned long*)m_array;
-			for(size_t i = 0U; i < frac_size; ++i)
-				lp[i] = 0xCCCCCCCCUL;
-			for(size_t i = rem_loc; i < m_size; ++i)
-				m_array[i] = 0xCC;
+			if(m_size <= 12U)
+			{
+				for(size_t i = 0U; i < m_size; ++i)
+					m_array[i] = 0xCC;
+			}
+			else
+			{
+				const size_t frac_size = m_size * sizeof(char_t) / sizeof(long);
+				const size_t rem_loc = frac_size * sizeof(long) / sizeof(char_t);
+				unsigned long *lp = (unsigned long*)m_array;
+				for(size_t i = 0U; i < frac_size; ++i)
+					lp[i] = 0xCCCCCCCCUL;
+				for(size_t i = rem_loc; i < m_size; ++i)
+					m_array[i] = 0xCC;
+			}
 		}
 		free(m_array);
 		m_array = NullStr;
