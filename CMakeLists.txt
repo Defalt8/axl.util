@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.10 )
 
-project( axl.util VERSION 1.0.0 DESCRIPTION "A simple C++ utilities library." )
+project( axl.util VERSION 1.0.2 DESCRIPTION "A simple C++ utilities library." )
 
 set( LIBAXLUTIL_SUFFIX "" )
 set( CMAKE_CXX_STANDARD 11 CACHE STRING "C++ compiler standard.")
