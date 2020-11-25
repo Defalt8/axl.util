@@ -3,9 +3,9 @@
 #include "lib.hpp"
 
 namespace axl {
-namespace utils {
+namespace util {
 
-class String
+class AXLUTILSCXXAPI String
 {
 	public:
 		typedef char char_t;
@@ -73,5 +73,5 @@ class String
 	friend class WString;
 };
 
-} // namespace axl.utils
+} // namespace axl.util
 } // namespace axl

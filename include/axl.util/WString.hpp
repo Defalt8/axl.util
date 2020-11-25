@@ -4,9 +4,9 @@
 #include "String.hpp"
 
 namespace axl {
-namespace utils {
+namespace util {
 
-class WString
+class AXLUTILSCXXAPI WString
 {
 	public:
 		typedef wchar_t char_t;
@@ -74,5 +74,5 @@ class WString
 		const static char_t NullWChar;
 };
 
-} // namespace axl.utils
+} // namespace axl.util
 } // namespace axl

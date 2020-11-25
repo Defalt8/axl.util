@@ -1,7 +1,13 @@
-# axl.utils
-C++ utilities library.
+# axl.util
 
-#### Library Headers
-- [axl.utils/lib.hpp](/include/axl.utils/lib.hpp) - The library header. Contains library version.
-- [axl.utils/String.hpp](/include/axl.utils/String.hpp) - A string class.
-- [axl.utils/WString.hpp](/include/axl.utils/WString.hpp) - A wide string class.
+A simple C++ utilities library.
+
+## Version
+
+- Latest version: 1.0.0
+
+## Library Headers
+
+- [axl.util/lib.hpp](/include/axl.util/lib.hpp) - The library header. Contains library version.
+- [axl.util/String.hpp](/include/axl.util/String.hpp) - A string class.
+- [axl.util/WString.hpp](/include/axl.util/WString.hpp) - A wide-char string class.

@@ -1,11 +1,11 @@
 #include <cstdlib>
 #include <cstring>
-#include <axl.utils/lib.hpp>
-#include <axl.utils/WString.hpp>
-#include <axl.utils/String.hpp>
+#include <axl.util/lib.hpp>
+#include <axl.util/WString.hpp>
+#include <axl.util/String.hpp>
 
 namespace axl {
-namespace utils {
+namespace util {
 
 WString::WString(size_t length) :
 	is_sensitive(false),
@@ -524,5 +524,5 @@ const WString::char_t*const WString::NullCWStr = (const WString::char_t*)0;
 WString::char_t*const WString::NullWStr = (WString::char_t*)0;
 const WString::char_t WString::NullWChar = (WString::char_t)L'\0';
 
-} // namespace axl.utils
+} // namespace axl.util
 } // namespace axl

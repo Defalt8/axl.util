@@ -2,16 +2,16 @@
 #include <cstdlib>
 #include <cstring>
 #include "Assert.hpp"
-#include <axl.utils/lib.hpp>
-#include <axl.utils/String.hpp>
+#include "lib.hpp"
+#include <axl.util/String.hpp>
 
 
 int main(int argc, char *argv[])
 {
 	bool verbose = argc > 1 && (0 == strcmp(argv[1], "-v") || 0 == strcmp(argv[1], "--verbose"));
 	using namespace axl;
-	using namespace axl::utils;
-	printf("library version: %u %u %u\n", lib::version.major, lib::version.minor, lib::version.patch);
+	using namespace axl::util;
+	printf("AXL.Utils - version %u.%u.%u -- %s %s\n", lib::VERSION.major, lib::VERSION.minor, lib::VERSION.patch, libType(lib::LIBRARY_TYPE), buildType(lib::BUILD_TYPE));
 	puts("----------------------------------------");
 	Assertve(sizeof(String::char_t) == 1U, verbose);
 	{ // Static variables tests
@@ -825,7 +825,7 @@ int main(int argc, char *argv[])
 			Assertv(0 == strcmp(lower_str.cstr(), "hello world! 1234@#$%"), verbose);
 		}
 	}
-	puts("----------------------------------------");
+	if(Assert::_num_failed_tests > 0) puts("----------------------------------------");
 	printf("# %d Failed!\n", Assert::_num_failed_tests);
 	return Assert::_num_failed_tests;
 }

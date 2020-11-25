@@ -1,32 +1,53 @@
-cmake_minimum_required( VERSION 3.17 )
-
-# Library
-add_library( axl.utils ${LIB_TYPE}
+# library
+set( LIBAXLUTIL_OUTPUT_NAME axl.util )
+add_library( axl.util ${LIBAXLUTIL_TYPE}
 	"lib.cpp"
 	"String.cpp"
 	"WString.cpp"
 )
-# Target compile definitions
-if( "${LIB_TYPE}" STREQUAL "SHARED" )
-	target_compile_definitions( axl.utils PRIVATE BUILD_SHARED )
-elseif( "${LIB_TYPE}" STREQUAL "MODULE" )
-	target_compile_definitions( axl.utils PRIVATE BUILD_MODULE )
-endif()
-# Target properties
-set_target_properties( axl.utils PROPERTIES
-	LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests"
-	RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests"
+target_compile_definitions( axl.util
+	PUBLIC LIBAXLUTIL_VERSION_MAJOR=${axl.util_VERSION_MAJOR}
+	PUBLIC LIBAXLUTIL_VERSION_MINOR=${axl.util_VERSION_PATCH}
+	PUBLIC LIBAXLUTIL_VERSION_PATCH=${axl.util_VERSION_MINOR}
 )
-if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
-	set_target_properties( axl.utils PROPERTIES
-		ARCHIVE_OUTPUT_NAME axl.utilsd
-		LIBRARY_OUTPUT_NAME axl.utilsd
-		RUNTIME_OUTPUT_NAME axl.utilsrd
+if( "${LIBAXLUTIL_TYPE}" MATCHES "^[Ss][Tt][Aa][Tt][Ii][Cc]$" )
+	set( LIBAXLUTIL_SUFFIX s )
+	target_compile_definitions( axl.util
+		PUBLIC LIBAXLUTIL_STATIC
 	)
+	if( INSTALL_ARCHIVES )
+		install( TARGETS axl.util
+			ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARCHIVES_INSTALL_DIR}"
+		)
+	endif()
+elseif( "${LIBAXLUTIL_TYPE}" MATCHES "^[Ss][Hh][Aa][Rr][Ee][Dd]$" )
+	target_compile_definitions( axl.util
+		PRIVATE LIBAXLUTIL_BUILDSHARED
+		PUBLIC LIBAXLUTIL_SHARED
+	)
+	if( INSTALL_ARCHIVES )
+		install( TARGETS axl.util
+			ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/${ARCHIVES_INSTALL_DIR}"
+		)
+	endif()
+	if( INSTALL_BINARIES )
+		install( TARGETS axl.util
+			RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/${BINARY_INSTALL_DIR}"
+		)
+	endif()
 else()
-	set_target_properties( axl.utils PROPERTIES
-		ARCHIVE_OUTPUT_NAME axl.utils
-		LIBRARY_OUTPUT_NAME axl.utils
-		RUNTIME_OUTPUT_NAME axl.utilsr
-	)
+	set( LIBAXLUTIL_SUFFIX l )
 endif()
+
+if( "${CMAKE_BUILD_TYPE}" MATCHES "[Dd][Ee][Bb][Uu][Gg]" )
+	set( LIBAXLUTIL_SUFFIX "${LIBAXLUTIL_SUFFIX}d" )
+endif()
+
+set_target_properties( axl.util PROPERTIES
+	OUTPUT_NAME "${LIBAXLUTIL_OUTPUT_NAME}${LIBAXLUTIL_SUFFIX}"
+	ARCHIVE_OUTPUT_NAME "${LIBAXLUTIL_OUTPUT_NAME}${LIBAXLUTIL_SUFFIX}"
+	LIBRARY_OUTPUT_NAME "${LIBAXLUTIL_OUTPUT_NAME}${LIBAXLUTIL_SUFFIX}"
+	RUNTIME_OUTPUT_NAME "${LIBAXLUTIL_OUTPUT_NAME}${LIBAXLUTIL_SUFFIX}"
+	LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/tests"
+	RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/tests"
+)
