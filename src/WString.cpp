@@ -326,7 +326,7 @@ void WString::destroy()
 			if(m_size <= 12U)
 			{
 				for(size_t i = 0U; i < m_size; ++i)
-					m_array[i] = 0xCCCC;
+					m_array[i] = (char_t)0xCCCC;
 			}
 			else
 			{
@@ -336,7 +336,7 @@ void WString::destroy()
 				for(size_t i = 0U; i < frac_size; ++i)
 					lp[i] = 0xCCCCCCCCUL;
 				for(size_t i = rem_loc; i < m_size; ++i)
-					m_array[i] = 0xCCCC;
+					m_array[i] = (char_t)0xCCCC;
 			}
 		}
 		free(m_array);
@@ -490,8 +490,13 @@ WString WString::toLower() const
 String WString::toString() const
 {
 	String str(m_length);
+#ifdef _UCRT
 	if(m_array && str.size() == m_length + 1U)
-		wcstombs(str.str(), m_array, m_length + 1U);
+		wcstombs_s(NULL, str.str(), m_length + 1U, m_array, m_length + 1U);
+#else
+	if(m_array && str.size() == m_length + 1U)
+		std::wcstombs(str.str(), m_array, m_length + 1U);
+#endif
 	str.m_length = m_length;
 	return str;
 }
