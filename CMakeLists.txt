@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.10 )
 
-project( axl.util VERSION 1.0.2 DESCRIPTION "A simple C++ utilities library." )
+project( axl.util VERSION 1.0.4 DESCRIPTION "A simple C++ utilities library." )
 
 set( LIBAXLUTIL_SUFFIX "" )
 set( CMAKE_CXX_STANDARD 11 CACHE STRING "C++ compiler standard.")
@@ -12,7 +12,11 @@ set( LIBAXLUTIL_EXPORT_DIR "${PROJECT_BINARY_DIR}/tests" CACHE PATH "Binary dire
 set( INSTALL_HEADERS ON CACHE BOOL "" )
 set( INSTALL_ARCHIVES ON CACHE BOOL "" )
 set( INSTALL_BINARIES ON CACHE BOOL "" )
-set( LIBAXLUTIL_BUILD_TESTS OFF CACHE BOOL "" )
+set( LIBAXLUTIL_INSTALL_HEADERS ON CACHE BOOL "" )
+set( LIBAXLUTIL_INSTALL_ARCHIVES ON CACHE BOOL "" )
+set( LIBAXLUTIL_INSTALL_BINARIES ON CACHE BOOL "" )
+set( LIBAXLUTIL_BUILD_TESTS ON CACHE BOOL "" )
+set( BUILD_TESTS OFF CACHE BOOL "" )
 set( LIBAXLUTIL_PRINT_CONFIGS OFF CACHE BOOL "" )
 
 if( LIBAXLUTIL_PRINT_CONFIGS )
@@ -38,12 +42,12 @@ endif()
 include_directories( include )
 
 add_subdirectory( src "axl.util" )
-if( BUILD_TESTS )
+if( BUILD_TESTS AND LIBAXLUTIL_BUILD_TESTS )
 	add_subdirectory( tests "tests" )
 endif()
 
 # install headers
-if( INSTALL_HEADERS )
+if( INSTALL_HEADERS AND LIBAXLUTIL_INSTALL_HEADERS )
 	install( FILES 
 		"include/axl.util/lib.hpp"
 		"include/axl.util/String.hpp"

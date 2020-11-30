@@ -1,21 +1,21 @@
 #pragma once
 
 #if defined(LIBAXLUTIL_SHARED) // shared
-	#ifdef WIN32
-		#ifdef LIBAXLUTIL_BUILDSHARED // export
-			#define AXLUTILSAPI extern __declspec(dllexport)
-			#define AXLUTILSCXXAPI __declspec(dllexport)
-		#else // import
-			#define AXLUTILSAPI extern __declspec(dllimport)
-			#define AXLUTILSCXXAPI __declspec(dllexport)
-		#endif
-	#else // other
-		#define AXLUTILSAPI extern
-		#define AXLUTILSCXXAPI
-	#endif
-#else // static
-	#define AXLUTILSAPI extern
-	#define AXLUTILSCXXAPI
+#	ifdef WIN32
+#		ifdef LIBAXLUTIL_BUILD // export
+#			define AXLUTILSAPI extern __declspec(dllexport)
+#			define AXLUTILSCXXAPI __declspec(dllexport)
+#		else // import
+#			define AXLUTILSAPI extern __declspec(dllimport)
+#			define AXLUTILSCXXAPI __declspec(dllexport)
+#		endif
+#	else // other
+#		define AXLUTILSAPI extern
+#		define AXLUTILSCXXAPI
+#	endif
+#else // static or other
+#	define AXLUTILSAPI extern
+#	define AXLUTILSCXXAPI
 #endif
 
 namespace axl {

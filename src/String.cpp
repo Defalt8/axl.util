@@ -325,7 +325,7 @@ void String::destroy()
 			if(m_size <= 12U)
 			{
 				for(size_t i = 0U; i < m_size; ++i)
-					m_array[i] = 0xCC;
+					m_array[i] = (char_t)0xCC;
 			}
 			else
 			{
@@ -335,7 +335,7 @@ void String::destroy()
 				for(size_t i = 0U; i < frac_size; ++i)
 					lp[i] = 0xCCCCCCCCUL;
 				for(size_t i = rem_loc; i < m_size; ++i)
-					m_array[i] = 0xCC;
+					m_array[i] = (char_t)0xCC;
 			}
 		}
 		free(m_array);

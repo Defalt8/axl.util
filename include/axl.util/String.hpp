@@ -1,5 +1,5 @@
 #pragma once
-#include <stddef.h>
+#include <cstdlib>
 #include "lib.hpp"
 
 namespace axl {
