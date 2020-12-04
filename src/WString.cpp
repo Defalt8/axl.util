@@ -490,7 +490,7 @@ WString WString::toLower() const
 String WString::toString() const
 {
 	String str(m_length);
-#ifdef _UCRT
+#ifdef _MSC_VER
 	if(m_array && str.size() == m_length + 1U)
 		wcstombs_s(NULL, str.str(), m_length + 1U, m_array, m_length + 1U);
 #else
