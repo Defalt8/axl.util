@@ -14,15 +14,14 @@ A simple C++ utilities library.
 
 ## Requirements
 
-- Windows operating system. (Linux and other platforms implementations are on the way)
 - CMake 3.10 or above.
 - Any C and C++ SDK that can be accessed through a command line. (MSVC, MinGW) If you have Visual Studio or CodeBlocks then you are set.
 
 ## How to get started
 
-- Clone this repos into the a directory and execute these commands to build the library.
+- Clone this repo into the a directory and execute these commands to build the library.
   - git clone https://github.com/defalt8/axl.util.git
-  - cd template.axl.util
+  - cd axl.util
   - mkdir out\\build
   - cd out\\build
   - cmake -B . -S ../../ (or with a generator of your choosing.) cmake -G \<generator\> -B . -S ../../
