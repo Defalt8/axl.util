@@ -58,6 +58,7 @@ class AXLUTILSCXXAPI WString
 		WString reverse() const;
 		WString toUpper() const;
 		WString toLower() const;
+		WString& format(const char_t* format, ...);
 		String toString() const;
 	public:
 		static size_t scwLength(const char_t* cwstr, size_t max=-1);

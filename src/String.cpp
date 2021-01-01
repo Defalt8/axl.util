@@ -1,5 +1,7 @@
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cstdarg>
 #include <axl.util/lib.hpp>
 #include <axl.util/String.hpp>
 
@@ -485,6 +487,23 @@ String String::toLower() const
 		lower_str.m_array[m_length] = NullChar;
 	}
 	return lower_str;
+}
+String& String::format(const char_t* format, ...)
+{
+	if (!m_array || m_size == 0) return *this;
+	va_list args;
+	va_start(args, format);
+#ifdef _MSC_VER
+	m_length = vsprintf_s(m_array, (m_size-1), format, args);
+#else
+#	if __cplusplus >= 201103
+	m_length = vsnprintf(m_array, (m_size-1), format, args);
+#	else
+	m_length = vsprintf(m_array, format, args);
+#	endif
+#endif
+	va_end(args);
+	return *this;
 }
 
 size_t String::scLength(const String::char_t* cstr, size_t max)

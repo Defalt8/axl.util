@@ -1,5 +1,7 @@
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cstdarg>
 #include <axl.util/lib.hpp>
 #include <axl.util/WString.hpp>
 #include <axl.util/String.hpp>
@@ -486,6 +488,23 @@ WString WString::toLower() const
 		lower_str.m_array[m_length] = NullWChar;
 	}
 	return lower_str;
+}
+WString& WString::format(const char_t* format, ...)
+{
+	if (!m_array || m_size == 0) return *this;
+	va_list args;
+	va_start(args, format);
+#ifdef _MSC_VER
+	m_length = vswprintf_s(m_array, (m_size - 1), format, args);
+#else
+#	if __cplusplus >= 201103
+	m_length = vswprintf(m_array, (m_size - 1), format, args);
+#	else
+	m_length = swprintf(m_array, (m_size - 1), format, args);
+#	endif
+#endif
+	va_end(args);
+	return *this;
 }
 String WString::toString() const
 {

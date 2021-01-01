@@ -824,6 +824,20 @@ int main(int argc, char *argv[])
 			Assertv(lower_str[21] == String::NullChar, verbose);
 			Assertv(0 == strcmp(lower_str.cstr(), "hello world! 1234@#$%"), verbose);
 		}
+		{ // format
+			{
+				String str(18);
+				Assertv(str.format("Doom%s %d", "Ethernal", 3) == "DoomEthernal 3", verbose);
+			}
+			{
+				String str(15);
+				Assertv(str.format("Doom%s %d", "Ethernal", 3) == "DoomEthernal 3", verbose);
+			}
+			{
+				String str(35);
+				Assertv(str.format("Temperature: %.1f, %.1lf", 24.5f, 72.66f) == "Temperature: 24.5, 72.7", verbose);
+			}
+		}
 	}
 	if(Assert::_num_failed_tests > 0) puts("----------------------------------------");
 	printf("# %d Failed!\n", Assert::_num_failed_tests);

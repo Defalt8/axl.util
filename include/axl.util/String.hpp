@@ -57,6 +57,7 @@ class AXLUTILSCXXAPI String
 		String reverse() const;
 		String toUpper() const;
 		String toLower() const;
+		String& format(const char_t* format, ...);
 	public:
 		static size_t scLength(const char_t* cstr, size_t max=-1);
 		static char_t* scCopy(const char_t* cstrsrc, char_t* cstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);

@@ -824,6 +824,20 @@ int main(int argc, char *argv[])
 			Assertv(lower_str[21] == WString::NullWChar, verbose);
 			Assertv(0 == wcscmp(lower_str.cwstr(), L"hello world! 1234@#$%"), verbose);
 		}
+		{ // format
+			{
+				WString str(18);
+				Assertv(str.format(L"Doom%s %d", L"Ethernal", 3) == L"DoomEthernal 3", verbose);
+			}
+			{
+				WString str(15);
+				Assertv(str.format(L"Doom%s %d", L"Ethernal", 3) == L"DoomEthernal 3", verbose);
+			}
+			{
+				WString str(35);
+				Assertv(str.format(L"Temperature: %.1f, %.1lf", 24.5f, 72.66f) == L"Temperature: 24.5, 72.7", verbose);
+			}
+		}
 		{ // ToString
 			WString wstr = L"Hello Mars!";
 			Assertv(wstr.size() == 12U, verbose);
