@@ -5,20 +5,20 @@ namespace util {
 namespace lib {
 
 
-AXLUTILSAPI const Version VERSION = { LIBAXLUTIL_VERSION_MAJOR, LIBAXLUTIL_VERSION_MINOR, LIBAXLUTIL_VERSION_PATCH };
+const Version VERSION = { AXLUTIL_VERSION_MAJOR, AXLUTIL_VERSION_MINOR, AXLUTIL_VERSION_PATCH };
 
-#if defined(LIBAXLUTIL_SHARED)
-AXLUTILSAPI const LibraryType LIBRARY_TYPE = LT_SHARED;
-#elif defined(LIBAXLUTIL_STATIC)
-AXLUTILSAPI const LibraryType LIBRARY_TYPE = LT_STATIC;
+#if defined(AXLUTIL_SHARED)
+const LibraryType LIBRARY_TYPE = LT_SHARED;
+#elif defined(AXLUTIL_STATIC)
+const LibraryType LIBRARY_TYPE = LT_STATIC;
 #endif
 
 #if defined(DEBUG)
-AXLUTILSAPI const BuildType BUILD_TYPE = BT_DEBUG;
+const BuildType BUILD_TYPE = BT_DEBUG;
 #elif defined(NDEBUG)
-AXLUTILSAPI const BuildType BUILD_TYPE = BT_RELEASE;
+const BuildType BUILD_TYPE = BT_RELEASE;
 #else
-AXLUTILSAPI const BuildType BUILD_TYPE = BT_OTHER;
+const BuildType BUILD_TYPE = BT_OTHER;
 #endif
 
 } // namespace axl.util.lib	

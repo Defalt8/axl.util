@@ -6,7 +6,7 @@
 namespace axl {
 namespace util {
 
-class AXLUTILSCXXAPI WString
+class AXLUTILCXXAPI WString
 {
 	public:
 		typedef wchar_t char_t;

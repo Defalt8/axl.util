@@ -1,48 +1,48 @@
 #pragma once
 
-#if defined(LIBAXLUTIL_SHARED) // shared
+#if defined(AXLUTIL_SHARED) // shared
 #	ifdef WIN32
-#		ifdef LIBAXLUTIL_BUILD // export
-#			define AXLUTILSAPI extern __declspec(dllexport)
-#			define AXLUTILSCXXAPI __declspec(dllexport)
+#		ifdef AXLUTIL_BUILD // export
+#			define AXLUTILAPI extern __declspec(dllexport)
+#			define AXLUTILCXXAPI __declspec(dllexport)
 #		else // import
-#			define AXLUTILSAPI extern __declspec(dllimport)
-#			define AXLUTILSCXXAPI __declspec(dllexport)
+#			define AXLUTILAPI extern __declspec(dllimport)
+#			define AXLUTILCXXAPI __declspec(dllexport)
 #		endif
 #	else // other
-#		define AXLUTILSAPI extern
-#		define AXLUTILSCXXAPI
+#		define AXLUTILAPI extern
+#		define AXLUTILCXXAPI
 #	endif
 #else // static or other
-#	define AXLUTILSAPI extern
-#	define AXLUTILSCXXAPI
+#	define AXLUTILAPI extern
+#	define AXLUTILCXXAPI
 #endif
 
 namespace axl {
 namespace util {
 namespace lib {
 
-typedef enum LibraryType {
+typedef enum _LibraryType {
 	LT_STATIC,
 	LT_SHARED
 } LibraryType;
 
-typedef enum BuildType {
+typedef enum _BuildType {
 	BT_DEBUG,
 	BT_RELEASE,
 	BT_OTHER
 } BuildType;
 
-typedef struct Version
+typedef struct _Version
 {
 	unsigned short major;
 	unsigned short minor;
 	unsigned short patch;
 } Version;
 
-AXLUTILSAPI const Version VERSION;
-AXLUTILSAPI const LibraryType LIBRARY_TYPE;
-AXLUTILSAPI const BuildType BUILD_TYPE;
+AXLUTILAPI const Version VERSION;
+AXLUTILAPI const LibraryType LIBRARY_TYPE;
+AXLUTILAPI const BuildType BUILD_TYPE;
 
 } // namespace axl.util.lib	
 } // namespace axl.util	

@@ -9,6 +9,10 @@
 namespace axl {
 namespace util {
 
+const WString::char_t*const WString::NullCWStr((const WString::char_t*const)0);
+WString::char_t*const WString::NullWStr((WString::char_t*const)0);
+const WString::char_t WString::NullWChar((WString::char_t)L'\0');
+
 WString::WString(size_t length) :
 	is_sensitive(false),
 	m_size(0U),
@@ -497,13 +501,14 @@ WString& WString::format(const char_t* format, ...)
 #ifdef _MSC_VER
 	m_length = vswprintf_s(m_array, (m_size - 1), format, args);
 #else
-#	if __cplusplus >= 201103
+#	if ((defined(__MINGW32_VERSION) && __MINGW32_VERSION > 5000002L)) || (!defined(__MINGW32_VERSION) && __cplusplus >= 201103)
 	m_length = vswprintf(m_array, (m_size - 1), format, args);
 #	else
-	m_length = swprintf(m_array, (m_size - 1), format, args);
+	m_length = vswprintf(m_array, format, args);
 #	endif
 #endif
 	va_end(args);
+	this->length(true);
 	return *this;
 }
 String WString::toString() const
@@ -543,10 +548,6 @@ WString::char_t* WString::scwCopy(const WString::char_t* src, WString::char_t* d
 		ac_dest[i] = ac_src[i];
 	return dest;
 }
-
-const WString::char_t*const WString::NullCWStr = (const WString::char_t*)0;
-WString::char_t*const WString::NullWStr = (WString::char_t*)0;
-const WString::char_t WString::NullWChar = (WString::char_t)L'\0';
 
 } // namespace axl.util
 } // namespace axl

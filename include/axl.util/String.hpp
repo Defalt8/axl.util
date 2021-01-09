@@ -5,7 +5,7 @@
 namespace axl {
 namespace util {
 
-class AXLUTILSCXXAPI String
+class AXLUTILCXXAPI String
 {
 	public:
 		typedef char char_t;
@@ -71,7 +71,7 @@ class AXLUTILSCXXAPI String
 		const static char_t*const NullCStr;
 		static char_t*const NullStr;
 		const static char_t NullChar;
-	friend class WString;
+		friend class WString;
 };
 
 } // namespace axl.util

@@ -4,6 +4,9 @@
 #include "Assert.hpp"
 #include "lib.hpp"
 
+#ifdef AXUTIL_BUILD
+#	error("AXUTIL_BUILD defined!")
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +15,7 @@ int main(int argc, char *argv[])
 	using namespace axl::util;
 	printf("AXL.Utils - version %u.%u.%u -- %s %s\n", lib::VERSION.major, lib::VERSION.minor, lib::VERSION.patch, libType(lib::LIBRARY_TYPE), buildType(lib::BUILD_TYPE));
 	puts("----------------------------------------");
+	if(Assert::_num_failed_tests > 0 || verbose) puts("----------------------------------------");
 	printf("# %d Failed!\n", Assert::_num_failed_tests);
 	return Assert::_num_failed_tests;
 }
