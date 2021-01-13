@@ -4,11 +4,17 @@ link_libraries( axl.util )
 add_executable( "axl.util.lib" "lib.cpp" )
 add_executable( "axl.util.string" "String.cpp" )
 add_executable( "axl.util.wstring" "WString.cpp" )
+add_executable( "axl.util.array" "ds/Array.cpp" )
+add_executable( "axl.util.list" "ds/List.cpp" )
+add_executable( "axl.util.node" "ds/Node.cpp" )
 
 set_target_properties(
 	"axl.util.lib"
 	"axl.util.string"
 	"axl.util.wstring"
+	"axl.util.array"
+	"axl.util.list"
+	"axl.util.node"
 	PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY "${AXLUTIL_RUNTIME_DIR}"
 )

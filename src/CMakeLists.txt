@@ -8,6 +8,21 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"lib.cpp"
 	"String.cpp"
 	"WString.cpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.inl"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.inl"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.inl"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.inl"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
+
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/WString.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/types.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 )
 target_include_directories( axl.util PUBLIC "${AXLUTIL_INCLUDE_DIR}" )
 target_compile_definitions( axl.util
@@ -56,5 +71,20 @@ if( AXLUTIL_INSTALL_HEADERS )
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/WString.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
+	
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/WString.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/types.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 		DESTINATION "include/axl.util" )
 endif()

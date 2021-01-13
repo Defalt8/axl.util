@@ -1,0 +1,181 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include "../Assert.hpp"
+#include "../lib.hpp"
+#include <axl.util/ds/Array.hpp>
+#include <axl.util/uc/Tracer.hpp>
+
+#ifdef AXUTIL_BUILD
+#	error("AXUTIL_BUILD defined!")
+#endif
+
+int main(int argc, char *argv[])
+{
+	bool verbose = argc > 1 && (0 == strcmp(argv[1], "-v") || 0 == strcmp(argv[1], "--verbose"));
+	using namespace axl;
+	using namespace axl::util;
+	printf("axl.util - version %u.%u.%u -- %s %s --- [Array] test.\n", lib::VERSION.major, lib::VERSION.minor, lib::VERSION.patch, libType(lib::LIBRARY_TYPE), buildType(lib::BUILD_TYPE));
+	puts("----------------------------------------");
+	{
+		using namespace axl::util::ds;
+		// Malloc
+		{
+			{
+				typedef int T;
+				bool b;
+				Array<T, Allocators::Malloc<T>> array;
+				Assertv(array.count() == 0U, verbose);
+				Assertv(array.array() == (T*)0, verbose);
+				Assertv((b = array.resize(3)), verbose);
+				if(b)
+				{
+					Assertv(array.count() == 3U, verbose);
+					Assertv(array.array() != (T*)0, verbose);
+					Assertv(array.set(36), verbose);
+					Assertv(array[0] == T(36), verbose);
+					Assertv(array[1] == T(36), verbose);
+					Assertv(array[2] == T(36), verbose);
+				}
+			}
+			{
+				typedef int T;
+				Array<T, Allocators::Malloc<T>> array = {1,2,3,4,5};
+				Assertv(array.count() == 5U, verbose);
+				Assertv(array.array() != (T*)0, verbose);
+				Assertv(array[0] == T(1), verbose);
+				Assertv(array[1] == T(2), verbose);
+				Assertv(array[2] == T(3), verbose);
+				Assertv(array[3] == T(4), verbose);
+				Assertv(array[4] == T(5), verbose);
+			}
+		}
+		// New
+		{
+			{
+				typedef int T;
+				bool b;
+				Array<T, Allocators::New<T>> array;
+				Assertv(array.count() == 0U, verbose);
+				Assertv(array.array() == (T*)0, verbose);
+				Assertv((b = array.resize(3)), verbose);
+				if(b)
+				{
+					Assertv(array.count() == 3U, verbose);
+					Assertv(array.array() != (T*)0, verbose);
+					Assertv(array.set(36), verbose);
+					Assertv(array[0] == T(36), verbose);
+					Assertv(array[1] == T(36), verbose);
+					Assertv(array[2] == T(36), verbose);
+				}
+			}
+			{
+				typedef int T;
+				Array<T, Allocators::New<T>> array = {1,2,3,4,5};
+				Assertv(array.count() == 5U, verbose);
+				Assertv(array.array() != (T*)0, verbose);
+				Assertv(array[0] == T(1), verbose);
+				Assertv(array[1] == T(2), verbose);
+				Assertv(array[2] == T(3), verbose);
+				Assertv(array[3] == T(4), verbose);
+				Assertv(array[4] == T(5), verbose);
+			}
+			{ // Tracer
+				using namespace axl::util::uc;
+				typedef Tracer T;
+				{
+					Assertv(Tracer::TOP == 0, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					Array<T, Allocators::New<T>> array;
+					Assertv(Tracer::TOP == 0, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					Tracer::Reset();
+					Assertv(Tracer::TOP == 0, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+				}
+				{
+					Tracer::Reset();
+					Assertv(Tracer::TOP == 0, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					{
+						Array<T, Allocators::New<T>> array = { 1,2,3,4,5 };
+						Assertv(Tracer::TOP == 5, verbose);
+						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(array.count() == 5U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						Assertv(array[2].value == Tracer::value_t(3), verbose);
+						Assertv(array[3].value == Tracer::value_t(4), verbose);
+						Assertv(array[4].value == Tracer::value_t(5), verbose);
+					}
+					Assertv(Tracer::TOP == 5, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					Tracer::Reset();
+				}
+				{
+					Tracer::Reset();
+					Assertv(Tracer::TOP == 0, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					{
+						Array<T, Allocators::New<T>> array;
+						Assertv(Tracer::TOP == 0, verbose);
+						Assertv(Tracer::ACTIVE == 0, verbose);
+						array = { 1,2,3,4,5 };
+						Assertv(Tracer::TOP == 5, verbose);
+						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(array.count() == 5U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						Assertv(array[2].value == Tracer::value_t(3), verbose);
+						Assertv(array[3].value == Tracer::value_t(4), verbose);
+						Assertv(array[4].value == Tracer::value_t(5), verbose);
+						array.resize(3);
+						Assertv(Tracer::TOP == 8, verbose);
+						Assertv(Tracer::ACTIVE == 3, verbose);
+						Assertv(array.count() == 3U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						Assertv(array[2].value == Tracer::value_t(3), verbose);
+						array.resize(6);
+						Assertv(Tracer::TOP == 14, verbose);
+						Assertv(Tracer::ACTIVE == 6, verbose);
+						Assertv(array.count() == 6U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						Assertv(array[2].value == Tracer::value_t(3), verbose);
+						Assertv(array[3].value == Tracer::value_t(), verbose);
+						Assertv(array[4].value == Tracer::value_t(), verbose);
+						Assertv(array[5].value == Tracer::value_t(), verbose);
+						array.resize(2, 36);
+						Assertv(Tracer::TOP == 16, verbose);
+						Assertv(Tracer::ACTIVE == 2, verbose);
+						Assertv(array.count() == 2U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						array.resize(5, 36);
+						Assertv(Tracer::TOP == 21, verbose);
+						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(array.count() == 5U, verbose);
+						Assertv(array.array() != (T*)0, verbose);
+						Assertv(array[0].value == Tracer::value_t(1), verbose);
+						Assertv(array[1].value == Tracer::value_t(2), verbose);
+						Assertv(array[2].value == Tracer::value_t(36), verbose);
+						Assertv(array[3].value == Tracer::value_t(36), verbose);
+						Assertv(array[4].value == Tracer::value_t(36), verbose);
+					}
+					Assertv(Tracer::TOP == 21, verbose);
+					Assertv(Tracer::ACTIVE == 0, verbose);
+					Tracer::Reset();
+				}
+			}
+		}
+	}
+	if(Assert::_num_failed_tests > 0 || verbose) puts("----------------------------------------");
+	printf("# %d Failed!\n", Assert::_num_failed_tests);
+	return Assert::_num_failed_tests;
+}

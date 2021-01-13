@@ -2,13 +2,14 @@ cmake_minimum_required( VERSION 3.10 )
 
 project( axl.util VERSION 1.1.4 DESCRIPTION "A simple C++ utilities library." )
 
-if( "${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${PROJECT_SOURCE_DIR}" )
+if( "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}" )
 	set( AXLUTIL_STANDALONE TRUE )
 else()
 	set( AXLUTIL_STANDALONE FALSE )
 endif()
 
 set( CMAKE_CXX_STANDARD 11 CACHE STRING "C++ compiler standard.")
+set( CMAKE_CXX_STANDARD_REQUIRED TRUE CACHE BOOL "")
 set( AXLUTIL_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include" CACHE PATH "axl.util main include directory" )
 set( AXLUTIL_RUNTIME_DIR "${PROJECT_BINARY_DIR}/bin" CACHE PATH "Binary directory path." )
 set( AXLUTIL_ARCHIVE_DIR "${PROJECT_BINARY_DIR}/lib" CACHE PATH "archive library directory path." )
