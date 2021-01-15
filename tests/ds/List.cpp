@@ -44,15 +44,15 @@ int main(int argc, char *argv[])
 				if(!unilist.insertFirst(i)) break;;
 			Assertv(i == 6, verbose);
 			Assertv(!unilist.isEmpty(), verbose);
-			Assertv(!unilist.begin().isNull(), verbose);
+			Assertv(!unilist.first().isNull(), verbose);
 			Assertv(!unilist.last().isNull(), verbose);
 			int counter = 6;
-			for(UniList<int>::Iterator it = unilist.begin(); it != unilist.end() || !it.isNull(); ++it)
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); ++it)
 			{
 				Assertv(*it == --counter, verbose);
 			}
 			counter = 6;
-			for(UniList<int>::Iterator it = unilist.begin(); it != unilist.end() || !it.isNull(); it++)
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); it++)
 			{
 				Assertv(*it == --counter, verbose);
 			}
@@ -64,17 +64,58 @@ int main(int argc, char *argv[])
 				if(!unilist.insertLast(i)) break;;
 			Assertv(i == 6, verbose);
 			Assertv(!unilist.isEmpty(), verbose);
-			Assertv(!unilist.begin().isNull(), verbose);
+			Assertv(!unilist.first().isNull(), verbose);
 			Assertv(!unilist.last().isNull(), verbose);
 			int counter = 0;
-			for(UniList<int>::Iterator it = unilist.begin(); it != unilist.end() || !it.isNull(); ++it)
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); ++it)
 			{
 				Assertv(*it == ++counter, verbose);
 			}
 			counter = 0;
-			for(UniList<int>::Iterator it = unilist.begin(); it != unilist.end() || !it.isNull(); it++)
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); it++)
 			{
 				Assertv(*it == ++counter, verbose);
+			}
+		}
+		{ // positionOf
+			UniList<int> unilist;
+			int i;
+			for(i = 1; i <= 3; ++i)
+				if(!unilist.insertLast(i)) break;;
+			Assertv(i == 4, verbose);
+			Assertv(!unilist.positionOf(1).isNull(), verbose);
+			Assertv(!unilist.positionOf(2).isNull(), verbose);
+			Assertv(!unilist.positionOf(3).isNull(), verbose);
+			Assertv(unilist.positionOf(4).isNull(), verbose);
+			Assertv(unilist.positionOf(0).isNull(), verbose);
+		}
+		{ // insertAfter
+			UniList<int> unilist;
+			Assertv(unilist.insertAfter(0), verbose);
+			Assertv(unilist.insertLast(2), verbose);
+			Assertv(unilist.insertLast(4), verbose);
+			Assertv(unilist.insertAfter(1, unilist.first()), verbose);
+			Assertv(unilist.insertAfter(3, unilist.positionOf(2)), verbose);
+			Assertv(unilist.insertAfter(5, unilist.positionOf(4)), verbose);
+			Assertv(unilist.count() == 6, verbose);
+			int counter = 0;
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end(); ++it)
+			{
+				Assertv(*it == counter++, verbose);
+			}
+		}
+		{ // insertAfterValue
+			UniList<int> unilist;
+			Assertv(unilist.insertLast(0), verbose);
+			Assertv(unilist.insertAfterValue(2, 0), verbose);
+			Assertv(unilist.insertAfterValue(3, 2), verbose);
+			Assertv(unilist.insertAfterValue(1, 0), verbose);
+			Assertv(unilist.insertAfterValue(4, 3), verbose);
+			Assertv(unilist.count() == 5, verbose);
+			int counter = 0;
+			for(UniList<int>::Iterator it = unilist.first(); it != unilist.end(); ++it)
+			{
+				Assertv(*it == counter++, verbose);
 			}
 		}
 		{ // removeFirst
@@ -98,7 +139,7 @@ int main(int argc, char *argv[])
 			Assertv(!unilist.isEmpty(), verbose);
 			unilist.removeAll();
 			Assertv(unilist.isEmpty(), verbose);
-			Assertv(unilist.begin().isNull(), verbose);
+			Assertv(unilist.first().isNull(), verbose);
 			Assertv(unilist.last().isNull(), verbose);
 		}
 		{ // Tracer
@@ -111,7 +152,7 @@ int main(int argc, char *argv[])
 				Assertv(Tracer::TOP == 0, verbose);
 				Assertv(Tracer::ACTIVE == 0, verbose);
 				Assertv(unilist.isEmpty(), verbose);
-				Assertv(unilist.begin().isNull(), verbose);
+				Assertv(unilist.first().isNull(), verbose);
 				Assertv(unilist.last().isNull(), verbose);
 				int i;
 				for(i = 1; i <= 5; ++i)
@@ -120,7 +161,7 @@ int main(int argc, char *argv[])
 				Assertv(Tracer::TOP == 5, verbose);
 				Assertv(Tracer::ACTIVE == 5, verbose);
 				int counter = 0;
-				for(UniList<Tracer>::Iterator it = unilist.begin(); it != unilist.end() || !it.isNull(); ++it)
+				for(UniList<Tracer>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); ++it)
 				{
 					Assertv(it->value == ++counter, verbose);
 				}
@@ -128,6 +169,16 @@ int main(int argc, char *argv[])
 			Assertv(Tracer::TOP == 5, verbose);
 			Assertv(Tracer::ACTIVE == 0, verbose);
 			Tracer::Reset();
+		}
+		{ // count
+			UniList<int> unilist;
+			for(int i = 0; i < 5; ++i)
+			{
+				Assertv(unilist.count() == i, verbose);
+				Assertv(unilist.insertLast(i), verbose);
+				Assertv(unilist.count() == (i+1), verbose);
+				Assertv(!unilist.last().isNull() && *unilist.last() == i, verbose);
+			}
 		}
 	}
 	if(Assert::_num_failed_tests > 0 || verbose) puts("----------------------------------------");

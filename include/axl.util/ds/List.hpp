@@ -27,6 +27,7 @@ public:
 		bool isNull() const;
 	private:
 		UniNode<V> *node;
+		friend class UniList<V>;
 	};
 public:
 	virtual ~UniList();
@@ -35,19 +36,26 @@ public:
 public:
 	UniList<V>& operator=(const UniList<V>& unilist);
 public:
-	Iterator begin() const;
+	size_t count() const;
+	Iterator first() const;
 	const Iterator end() const;
 	Iterator last() const;
+	Iterator positionOf(const V& value) const;
 	bool isEmpty() const;
 	template <typename T = V>
 	bool insertFirst(const T& value);
 	template <typename T = V>
 	bool insertLast(const T& value);
+	template <typename T = V>
+	bool insertAfter(const T& value, const Iterator& position = Iterator((UniNode<V>*)0));
+	template <typename T = V>
+	bool insertAfterValue(const T& value, const V& after_value);
 	V removeFirst();
 	void removeAll();
 private:
 	UniNode<V>* m_first;
 	UniNode<V>* m_last;
+	size_t m_count;
 };
 
 

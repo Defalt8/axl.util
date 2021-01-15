@@ -100,6 +100,7 @@ UniList<V>::~UniList()
 
 template <typename V>
 UniList<V>::UniList() :
+	m_count(),
 	m_first(),
 	m_last()
 {}
@@ -119,7 +120,13 @@ UniList<V>& UniList<V>::operator=(const UniList<V>& unilist)
 }
 
 template <typename V>
-typename UniList<V>::Iterator UniList<V>::begin() const
+size_t UniList<V>::count() const
+{
+	return this->m_count;
+}
+
+template <typename V>
+typename UniList<V>::Iterator UniList<V>::first() const
 {
 	return UniList<V>::Iterator(this->m_first);
 }
@@ -137,6 +144,17 @@ typename UniList<V>::Iterator UniList<V>::last() const
 }
 
 template <typename V>
+typename UniList<V>::Iterator UniList<V>::positionOf(const V& value) const
+{
+	Iterator it = this->m_first;
+	for(; it != (UniNode<V>*)0; ++it)
+	{
+		if(*it == value) break;
+	}
+	return it;
+}
+
+template <typename V>
 bool UniList<V>::isEmpty() const
 {
 	return (UniNode<V>*)0 == this->m_first;
@@ -151,17 +169,13 @@ bool UniList<V>::insertFirst(const T& value)
 	new_node->next = this->m_first;
 	if(!this->m_first)
 	{
-		this->m_first = new_node;
-	}
-	else if(!this->m_last)
-	{
-		this->m_last = this->m_first;
-		this->m_first = new_node;
+		this->m_first = this->m_last = new_node;
 	}
 	else
 	{
 		this->m_first = new_node;
 	}
+	++this->m_count;
 	return true;
 }
 
@@ -173,10 +187,9 @@ bool UniList<V>::insertLast(const T& value)
 	if(!new_node) return false;
 	if(!this->m_first)
 	{
-		this->m_first = new_node;
-		this->m_last = (UniNode<V>*)0;
+		this->m_first = this->m_last = new_node;
 	}
-	else if(!this->m_last)
+	else if(this->m_first == this->m_last)
 	{
 		this->m_last = new_node;
 		this->m_first->next = this->m_last;
@@ -184,9 +197,34 @@ bool UniList<V>::insertLast(const T& value)
 	else
 	{
 		this->m_last->next = new_node;
-		this->m_last = this->m_last->next;
+		this->m_last = new_node;
 	}
+	++this->m_count;
 	return true;
+}
+
+template <typename V>
+template <typename T>
+bool UniList<V>::insertAfter(const T& value, const UniList<V>::Iterator& position)
+{
+	if(position.isNull()) return this->insertFirst(value);
+	UniNode<V>* new_node = new UniNode<V>(value, position.node->next);
+	if(!new_node) return false;
+	position.node->next = new_node;
+	++this->m_count;
+	return true;
+}
+
+template <typename V>
+template <typename T>
+bool UniList<V>::insertAfterValue(const T& value, const V& after_value)
+{
+	for(Iterator it = this->m_first; it != (UniNode<V>*)0; ++it)
+	{
+		if(*it == after_value)
+			return this->insertAfter(value, it);
+	}
+	return false;
 }
 
 template <typename V>
@@ -197,16 +235,17 @@ V UniList<V>::removeFirst()
 	{
 		UniNode<V>* first = this->m_first;
 		value = this->m_first->value;
-		if(this->m_first->next && this->m_first->next == this->m_last)
+		if(this->m_first == this->m_last)
 		{
-			this->m_first = first->next;
-			this->m_last = (UniNode<V>*)0;
+			this->m_first = this->m_last = (UniNode<V>*)0;
 		}
 		else
 		{
 			this->m_first = first->next;
 		}
 		delete first;
+		if(this->m_count <= 0) throw "List element count is off.";
+		--this->m_count;
 	}
 	else
 	{
@@ -227,6 +266,7 @@ void UniList<V>::removeAll()
 			delete it;
 		}
 	}
+	this->m_count = 0;
 	this->m_first = this->m_last = (UniNode<V>*)0;
 }
 
