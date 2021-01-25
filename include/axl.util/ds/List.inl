@@ -255,6 +255,44 @@ V UniList<V>::removeFirst()
 }
 
 template <typename V>
+bool UniList<V>::remove(const V& value)
+{
+	if(this->m_first)
+	{
+		UniNode<V>* first = this->m_first;
+		if(value == first->value)
+		{
+			if(this->m_first == this->m_last)
+			{
+				this->m_first = this->m_last = (UniNode<V>*)0;
+			}
+			else
+			{
+				this->m_first = first->next;
+			}
+			delete first;
+			if(this->m_count <= 0) throw "List element count is off.";
+			--this->m_count;
+		}
+		else
+		{
+			for(UniNode<V>* it = first->next, *prev = (UniNode<V>*)first; it != (UniNode<V>*)0; prev = it++)
+			{
+				if(it && it->value == value)
+				{
+					if(prev) prev->next = it->next;
+					delete it;
+					if(this->m_count <= 0) throw "List element count is off.";
+					--this->m_count;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+template <typename V>
 void UniList<V>::removeAll()
 {
 	if(this->m_first)

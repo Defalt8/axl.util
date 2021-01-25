@@ -51,6 +51,7 @@ public:
 	template <typename T = V>
 	bool insertAfterValue(const T& value, const V& after_value);
 	V removeFirst();
+	bool remove(const V& value);
 	void removeAll();
 private:
 	UniNode<V>* m_first;
