@@ -8,11 +8,8 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"lib.cpp"
 	"String.cpp"
 	"WString.cpp"
-	"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.inl"
-	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.inl"
-	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.inl"
-	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.inl"
-	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
+	"uc/Clock.cpp"
+	"uc/Time.cpp"
 
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
@@ -23,6 +20,8 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Clock.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"
 )
 target_include_directories( axl.util PUBLIC "${AXLUTIL_INCLUDE_DIR}" )
 target_compile_definitions( axl.util
@@ -80,6 +79,8 @@ if( AXLUTIL_INSTALL_HEADERS )
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.inl"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Clock.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
 		DESTINATION "include/axl.util" )
