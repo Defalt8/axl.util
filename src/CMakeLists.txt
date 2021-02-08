@@ -10,6 +10,9 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"WString.cpp"
 	"uc/Clock.cpp"
 	"uc/Time.cpp"
+	"uc/Object.cpp"
+	"uc/Child.cpp"
+	"uc/Parent.cpp"
 
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
@@ -22,6 +25,9 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Clock.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Object.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Child.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Parent.hpp"
 )
 target_include_directories( axl.util PUBLIC "${AXLUTIL_INCLUDE_DIR}" )
 target_compile_definitions( axl.util
@@ -83,5 +89,8 @@ if( AXLUTIL_INSTALL_HEADERS )
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Object.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Child.hpp"
+		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Parent.hpp"
 		DESTINATION "include/axl.util" )
 endif()
