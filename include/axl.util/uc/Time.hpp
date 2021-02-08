@@ -1,10 +1,11 @@
 #pragma once
+#include "../lib.hpp"
 
 namespace axl {
 namespace util {
 namespace uc {
 
-class Time
+class AXLUTILCXXAPI Time
 {
 	public: typedef unsigned long millis_t;
 	public:
