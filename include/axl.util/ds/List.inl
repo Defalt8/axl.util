@@ -273,6 +273,7 @@ bool UniList<V>::remove(const V& value)
 			delete first;
 			if(this->m_count <= 0) throw "List element count is off.";
 			--this->m_count;
+			return true;
 		}
 		else
 		{
