@@ -15,9 +15,13 @@ void Time::set()
 {
 	m_checkpoint = clock();
 }
-float Time::deltaTime() const
+float Time::deltaTimef() const
 {
 	return ((float)clock() - m_checkpoint) / 1000.0f;
+}
+double Time::deltaTime() const
+{
+	return ((double)clock() - m_checkpoint) / 1000.0;
 }
 Time::millis_t Time::deltaTimei() const
 {

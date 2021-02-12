@@ -13,7 +13,8 @@ class AXLUTILCXXAPI Time
 		// Updates the time checkpoint.
 		void set();
 		// Returns the time difference till the last checkpoint in seconds.
-		float deltaTime() const;
+		float deltaTimef() const;
+		double deltaTime() const;
 		millis_t deltaTimei() const;
 		// Returns the time difference till the last checkpoint in milliseconds.
 		float deltaTimeM() const;
