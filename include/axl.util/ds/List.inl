@@ -277,7 +277,7 @@ bool UniList<V>::remove(const V& value)
 		}
 		else
 		{
-			for(UniNode<V>* it = first->next, *prev = (UniNode<V>*)first; it != (UniNode<V>*)0; prev = it++)
+			for(UniNode<V>* it = first->next, *prev = (UniNode<V>*)first; it != (UniNode<V>*)0; prev = it, it = it->next)
 			{
 				if(it && it->value == value)
 				{
