@@ -15,6 +15,10 @@ void Time::set()
 {
 	m_checkpoint = clock();
 }
+void Time::setFromReference(const Time& reference)
+{
+	m_checkpoint = this->m_checkpoint + (clock() - reference.m_checkpoint);
+}
 float Time::deltaTimef() const
 {
 	return ((float)clock() - m_checkpoint) / 1000.0f;

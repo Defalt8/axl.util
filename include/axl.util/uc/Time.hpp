@@ -12,6 +12,8 @@ class AXLUTILCXXAPI Time
 		Time();
 		// Updates the time checkpoint.
 		void set();
+		// Adds the current time minus the reference to the time checkpoint.
+		void setFromReference(const Time& reference);
 		// Returns the time difference till the last checkpoint in seconds.
 		float deltaTimef() const;
 		double deltaTime() const;
