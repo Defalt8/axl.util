@@ -4,14 +4,16 @@ A simple C++ utilities library.
 
 ## Version
 
-- Latest version: 1.4.9
+- Latest version: 1.5.11
 
 ## Library Headers
 
+- [include/axl.util/everything.hpp](/include/axl.util/everything.hpp) - Includes every header in the library.
 - [include/axl.util/lib.hpp](/include/axl.util/lib.hpp) - The library header. Contains library version.
 - [include/axl.util/types.hpp](/include/axl.util/types.hpp) - Defines certain data types.
 - [include/axl.util/String.hpp](/include/axl.util/String.hpp) - An string class.
 - [include/axl.util/WString.hpp](/include/axl.util/WString.hpp) - A wide-char string class.
+- [include/axl.util/File.hpp](/include/axl.util/File.hpp) - File operations.
 - [include/axl.util/allocators.hpp](/include/axl.util/allocators.hpp) - Allocator class.
 - [include/axl.util/ds/Array.hpp](/include/axl.util/ds/Array.hpp)  - Array class
 - [include/axl.util/ds/Node.hpp](/include/axl.util/ds/Node.hpp) - Defines different node types. (UniNode, BiNode, PolyNode)
