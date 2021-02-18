@@ -16,6 +16,8 @@ class AXLUTILCXXAPI WString
 		WString(const char_t* cwstring, size_t length, size_t offset = 0U);
 		WString(const WString& tocopy);
 		WString(const WString& tocopy, size_t length, size_t offset = 0U);
+		WString(const String& tocopy);
+		WString(const String& tocopy, size_t length, size_t offset = 0U);
 		#if (__cplusplus >= 201103)
 		WString(WString&& tomove);
 		#endif
@@ -25,6 +27,7 @@ class AXLUTILCXXAPI WString
 		WString& operator=(WString&& tomove);
 		#endif
 		WString& operator=(const WString& tocopy);
+		WString& operator=(const String& tocopy);
 		WString& operator=(const char_t* cwstring);
 	public:
 		const char_t& operator[](size_t index) const;
@@ -63,6 +66,7 @@ class AXLUTILCXXAPI WString
 	public:
 		static size_t scwLength(const char_t* cwstr, size_t max=-1);
 		static char_t* scwCopy(const char_t* cwstrsrc, char_t* cwstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
+		static char_t* scCopy(const String::char_t* cwstrsrc, char_t* cwstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
 	public:
 		bool is_sensitive;
 	private:

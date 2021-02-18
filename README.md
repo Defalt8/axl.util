@@ -4,13 +4,24 @@ A simple C++ utilities library.
 
 ## Version
 
-- Latest version: 1.2.7
+- Latest version: 1.4.9
 
 ## Library Headers
 
-- [axl.util/lib.hpp](/include/axl.util/lib.hpp) - The library header. Contains library version.
-- [axl.util/String.hpp](/include/axl.util/String.hpp) - A string class.
-- [axl.util/WString.hpp](/include/axl.util/WString.hpp) - A wide-char string class.
+- [include/axl.util/lib.hpp](/include/axl.util/lib.hpp) - The library header. Contains library version.
+- [include/axl.util/types.hpp](/include/axl.util/types.hpp) - Defines certain data types.
+- [include/axl.util/String.hpp](/include/axl.util/String.hpp) - An string class.
+- [include/axl.util/WString.hpp](/include/axl.util/WString.hpp) - A wide-char string class.
+- [include/axl.util/allocators.hpp](/include/axl.util/allocators.hpp) - Allocator class.
+- [include/axl.util/ds/Array.hpp](/include/axl.util/ds/Array.hpp)  - Array class
+- [include/axl.util/ds/Node.hpp](/include/axl.util/ds/Node.hpp) - Defines different node types. (UniNode, BiNode, PolyNode)
+- [include/axl.util/ds/List.hpp](/include/axl.util/ds/List.hpp) - Defines different node types. (UniList, ...)
+- [include/axl.util/uc/Clock.hpp](/include/axl.util/uc/Clock.hpp) - Clock class for cheking past time.
+- [include/axl.util/uc/Time.hpp](/include/axl.util/uc/Time.hpp) - Time class for calculating delta time.
+- [include/axl.util/uc/Tracer.hpp](/include/axl.util/uc/Tracer.hpp) - Tracer class for testing data structures.
+- [include/axl.util/uc/Object.hpp](/include/axl.util/uc/Object.hpp) - Object class to handle object creation and destruction on an interface level.
+- [include/axl.util/uc/Child.hpp](/include/axl.util/uc/Child.hpp) - Child class to handle object relations on an interface level.
+- [include/axl.util/uc/Parent.hpp](/include/axl.util/uc/Parent.hpp) - Child class to handle object relations on an interface level.
 
 ## Requirements
 

@@ -112,6 +112,48 @@ WString::WString(const WString& tocopy, size_t length, size_t offset) :
 		}
 	}
 }
+WString::WString(const String& tocopy) :
+	is_sensitive(false),
+	m_size(0U),
+	m_length(0U)
+{
+	const size_t size = tocopy.length() + 1U;
+	if(size == 0)
+		m_array = NullWStr;
+	else if(size > 0)
+	{
+		m_array = (char_t*) malloc(size*sizeof(char_t));
+		if(m_array)
+		{
+			m_size = size;
+			m_length = size - 1;
+			scCopy(tocopy.cstr(), m_array, m_length);
+			m_array[m_length] = NullWChar;
+		}
+	}
+}
+WString::WString(const String& tocopy, size_t length, size_t offset) :
+	is_sensitive(false),
+	m_size(0U),
+	m_length(0U)
+{
+	const size_t str_len = tocopy.length();
+	const size_t tocopy_len = (offset <= str_len ? (str_len - offset) : 0U);
+	const size_t size = (offset <= str_len ? ((length > tocopy_len ? tocopy_len : length) + 1U) : 1U);
+	if(size == 0)
+		m_array = NullWStr;
+	else if(size > 0)
+	{
+		m_array = (char_t*) malloc(size*sizeof(char_t));
+		if(m_array)
+		{
+			m_size = size;
+			m_length = size - 1;
+			scCopy(tocopy.cstr(), m_array, m_length, offset);
+			m_array[m_length] = NullWChar;
+		}
+	}
+}
 #if (__cplusplus >= 201103)
 WString::WString(WString&& tomove) :
 	is_sensitive(tomove.is_sensitive),
@@ -153,6 +195,25 @@ WString& WString::operator=(const WString& tocopy)
 			m_size = size;
 			m_length = size - 1;
 			scwCopy(tocopy.m_array, m_array, m_length);
+			m_array[m_length] = NullWChar;
+		}
+	}
+	return *this;
+}
+WString& WString::operator=(const String& tocopy)
+{
+	const size_t size = tocopy.length() + 1U;
+	this->destroy();
+	if(size == 0)
+		m_array = NullWStr;
+	else if(size > 0)
+	{
+		m_array = (char_t*) malloc(size*sizeof(char_t));
+		if(m_array)
+		{
+			m_size = size;
+			m_length = size - 1;
+			scCopy(tocopy.cstr(), m_array, m_length);
 			m_array[m_length] = NullWChar;
 		}
 	}
@@ -546,6 +607,15 @@ WString::char_t* WString::scwCopy(const WString::char_t* src, WString::char_t* d
 	char_t *ac_dest = &dest[dest_offset];
 	for(size_t i = 0U; i < length; ++i)
 		ac_dest[i] = ac_src[i];
+	return dest;
+}
+WString::char_t* WString::scCopy(const String::char_t* src, WString::char_t* dest, size_t length, size_t src_offset, size_t dest_offset)
+{
+	if(!src || !dest) return dest;
+	const String::char_t *ac_src = &src[src_offset];
+	char_t *ac_dest = &dest[dest_offset];
+	for(size_t i = 0U; i < length; ++i)
+		ac_dest[i] = (char_t)ac_src[i];
 	return dest;
 }
 
