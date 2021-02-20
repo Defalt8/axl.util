@@ -1,11 +1,12 @@
 #pragma once
+#include "../lib.hpp"
 
 namespace axl {
 namespace util {
 // Utility classes
 namespace uc {
 
-class Tracer
+class AXLUTILCXXAPI Tracer
 {
 public:
 	typedef int value_t;
@@ -40,4 +41,4 @@ private:
 } // axl::util
 } // axl
 
-#include "Tracer.inl"
+// #include "Tracer.inl"

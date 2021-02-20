@@ -11,6 +11,7 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"File.cpp"
 	"uc/Clock.cpp"
 	"uc/Time.cpp"
+	"uc/Tracer.cpp"
 	"uc/Object.cpp"
 	"uc/Child.cpp"
 	"uc/Parent.cpp"
