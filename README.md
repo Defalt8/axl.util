@@ -4,7 +4,7 @@ A simple C++ utilities library.
 
 ## Version
 
-- Latest version: 1.5.11
+- Latest version: 1.6.13
 
 ## Library Headers
 
@@ -14,6 +14,7 @@ A simple C++ utilities library.
 - [include/axl.util/String.hpp](/include/axl.util/String.hpp) - An string class.
 - [include/axl.util/WString.hpp](/include/axl.util/WString.hpp) - A wide-char string class.
 - [include/axl.util/File.hpp](/include/axl.util/File.hpp) - File operations.
+- [include/axl.util/Random.hpp](/include/axl.util/Random.hpp) - Random number generator functions.
 - [include/axl.util/allocators.hpp](/include/axl.util/allocators.hpp) - Allocator class.
 - [include/axl.util/ds/Array.hpp](/include/axl.util/ds/Array.hpp)  - Array class
 - [include/axl.util/ds/Node.hpp](/include/axl.util/ds/Node.hpp) - Defines different node types. (UniNode, BiNode, PolyNode)
