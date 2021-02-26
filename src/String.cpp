@@ -8,9 +8,9 @@
 namespace axl {
 namespace util {
 
-const String::char_t*const String::NullCStr((const String::char_t*)0);
-String::char_t*const String::NullStr((String::char_t*)0);
-const String::char_t String::NullChar((String::char_t)'\0');
+const String::char_t*const String::NullCStr = (const String::char_t*)0;
+String::char_t*const String::NullStr = (String::char_t*)0;
+const String::char_t String::NullChar = (String::char_t)'\0';
 
 String::String(size_t length) :
 	is_sensitive(false),

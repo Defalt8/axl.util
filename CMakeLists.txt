@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.10 )
 
-project( axl.util VERSION 1.6.13 DESCRIPTION "A simple C++ utilities library." )
+project( axl.util VERSION 1.8.17 DESCRIPTION "A simple C++ utilities library." )
 
 if( "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}" )
 	set( AXLUTIL_STANDALONE TRUE )
@@ -19,6 +19,7 @@ set( AXLUTIL_INSTALL_BINARIES ${AXLUTIL_STANDALONE} CACHE BOOL "" )
 set( AXLUTIL_BUILD_TESTS ${AXLUTIL_STANDALONE} CACHE BOOL "" )
 set( CMAKE_BUILD_TYPE "Debug" CACHE STRING "" )
 set( AXLUTIL_TYPE STATIC CACHE STRING "Library type." )
+# set( BUILD_SHARED_LIBS ON )
 
 add_subdirectory( src "axl.util" )
 if( AXLUTIL_BUILD_TESTS )

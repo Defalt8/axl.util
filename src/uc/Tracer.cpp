@@ -51,14 +51,30 @@ Tracer& Tracer::operator=(Tracer&& tracer)
 }
 #endif
 
+bool Tracer::operator==(const Tracer& tracer) const
+{
+	return this->value == tracer.value;
+}
+
+bool Tracer::operator!=(const Tracer& tracer) const
+{
+	return this->value != tracer.value;
+}
+
 void Tracer::Reset()
 {
 	Tracer::S_TOP = 0;
 	Tracer::S_ACTIVE = 0;
 }
 
-const Tracer::id_t& Tracer::TOP = Tracer::S_TOP;
-const Tracer::id_t& Tracer::ACTIVE = Tracer::S_ACTIVE;
+const Tracer::id_t Tracer::Top()
+{
+	return Tracer::S_TOP;
+}
+const Tracer::id_t Tracer::Active()
+{
+	return Tracer::S_ACTIVE;
+}
 
 Tracer::id_t Tracer::S_TOP = 0;
 Tracer::id_t Tracer::S_ACTIVE = 0;

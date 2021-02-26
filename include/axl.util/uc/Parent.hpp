@@ -8,6 +8,8 @@ namespace uc {
 
 class AXLUTILCXXAPI Child;
 
+template class AXLUTILCXXAPI axl::util::ds::UniList<axl::util::uc::Child*>;
+
 class AXLUTILCXXAPI Parent
 {
 	public:

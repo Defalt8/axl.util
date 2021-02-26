@@ -24,14 +24,15 @@ public:
 #	if __cplusplus >= 201103L
 	Tracer& operator=(Tracer&& tracer);
 #	endif
+	bool operator==(const Tracer& tracer) const;
+	bool operator!=(const Tracer& tracer) const;
 public:
 	static void Reset();
+	static const id_t Top();
+	static const id_t Active();
 public:
 	const id_t id;
 	value_t value;
-public:
-	const static id_t& TOP;
-	const static id_t& ACTIVE;
 private:
 	static id_t S_TOP;
 	static id_t S_ACTIVE;

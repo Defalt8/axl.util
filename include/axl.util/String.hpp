@@ -68,9 +68,9 @@ class AXLUTILCXXAPI String
 		size_t m_length;
 		size_t m_size;
 	public:
-		const static char_t*const NullCStr;
+		static const char_t*const NullCStr;
 		static char_t*const NullStr;
-		const static char_t NullChar;
+		static const char_t NullChar;
 		friend class WString;
 };
 

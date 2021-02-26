@@ -84,23 +84,23 @@ int main(int argc, char *argv[])
 				using namespace axl::util::uc;
 				typedef Tracer T;
 				{
-					Assertv(Tracer::TOP == 0, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 0, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					Array<T, Allocators::New<T>> array;
-					Assertv(Tracer::TOP == 0, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 0, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					Tracer::Reset();
-					Assertv(Tracer::TOP == 0, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 0, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 				}
 				{
 					Tracer::Reset();
-					Assertv(Tracer::TOP == 0, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 0, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					{
 						Array<T, Allocators::New<T>> array = { 1,2,3,4,5 };
-						Assertv(Tracer::TOP == 5, verbose);
-						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(Tracer::Top() == 5, verbose);
+						Assertv(Tracer::Active() == 5, verbose);
 						Assertv(array.count() == 5U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
@@ -109,21 +109,21 @@ int main(int argc, char *argv[])
 						Assertv(array[3].value == Tracer::value_t(4), verbose);
 						Assertv(array[4].value == Tracer::value_t(5), verbose);
 					}
-					Assertv(Tracer::TOP == 5, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 5, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					Tracer::Reset();
 				}
 				{
 					Tracer::Reset();
-					Assertv(Tracer::TOP == 0, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 0, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					{
 						Array<T, Allocators::New<T>> array;
-						Assertv(Tracer::TOP == 0, verbose);
-						Assertv(Tracer::ACTIVE == 0, verbose);
+						Assertv(Tracer::Top() == 0, verbose);
+						Assertv(Tracer::Active() == 0, verbose);
 						array = { 1,2,3,4,5 };
-						Assertv(Tracer::TOP == 5, verbose);
-						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(Tracer::Top() == 5, verbose);
+						Assertv(Tracer::Active() == 5, verbose);
 						Assertv(array.count() == 5U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
@@ -132,16 +132,16 @@ int main(int argc, char *argv[])
 						Assertv(array[3].value == Tracer::value_t(4), verbose);
 						Assertv(array[4].value == Tracer::value_t(5), verbose);
 						array.resize(3);
-						Assertv(Tracer::TOP == 8, verbose);
-						Assertv(Tracer::ACTIVE == 3, verbose);
+						Assertv(Tracer::Top() == 8, verbose);
+						Assertv(Tracer::Active() == 3, verbose);
 						Assertv(array.count() == 3U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
 						Assertv(array[1].value == Tracer::value_t(2), verbose);
 						Assertv(array[2].value == Tracer::value_t(3), verbose);
 						array.resize(6);
-						Assertv(Tracer::TOP == 14, verbose);
-						Assertv(Tracer::ACTIVE == 6, verbose);
+						Assertv(Tracer::Top() == 14, verbose);
+						Assertv(Tracer::Active() == 6, verbose);
 						Assertv(array.count() == 6U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
@@ -151,15 +151,15 @@ int main(int argc, char *argv[])
 						Assertv(array[4].value == Tracer::value_t(), verbose);
 						Assertv(array[5].value == Tracer::value_t(), verbose);
 						array.resize(2, 36);
-						Assertv(Tracer::TOP == 16, verbose);
-						Assertv(Tracer::ACTIVE == 2, verbose);
+						Assertv(Tracer::Top() == 16, verbose);
+						Assertv(Tracer::Active() == 2, verbose);
 						Assertv(array.count() == 2U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
 						Assertv(array[1].value == Tracer::value_t(2), verbose);
 						array.resize(5, 36);
-						Assertv(Tracer::TOP == 21, verbose);
-						Assertv(Tracer::ACTIVE == 5, verbose);
+						Assertv(Tracer::Top() == 21, verbose);
+						Assertv(Tracer::Active() == 5, verbose);
 						Assertv(array.count() == 5U, verbose);
 						Assertv(array.array() != (T*)0, verbose);
 						Assertv(array[0].value == Tracer::value_t(1), verbose);
@@ -168,8 +168,8 @@ int main(int argc, char *argv[])
 						Assertv(array[3].value == Tracer::value_t(36), verbose);
 						Assertv(array[4].value == Tracer::value_t(36), verbose);
 					}
-					Assertv(Tracer::TOP == 21, verbose);
-					Assertv(Tracer::ACTIVE == 0, verbose);
+					Assertv(Tracer::Top() == 21, verbose);
+					Assertv(Tracer::Active() == 0, verbose);
 					Tracer::Reset();
 				}
 			}

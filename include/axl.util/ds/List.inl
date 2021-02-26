@@ -44,12 +44,13 @@ const V* UniList<V>::Iterator::operator->() const
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::Iterator::operator+(size_t offset) const
 {
+	UniList<V>::Iterator iterator(this->node);
 	size_t counter = 0;
-	while(this->node && ++counter <= offset)
+	while(iterator.node && ++counter <= offset)
 	{
-		this->node = this->node->next;
+		iterator.node = iterator.node->next;
 	}
-	return *this;
+	return iterator;
 }
 
 
@@ -108,7 +109,7 @@ UniList<V>::UniList() :
 template <typename V>
 UniList<V>::UniList(const UniList<V>& unilist) :
 	m_first(unilist.m_first),
-	m_first(unilist.m_last)
+	m_last(unilist.m_last)
 {}
 
 template <typename V>

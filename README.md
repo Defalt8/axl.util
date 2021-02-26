@@ -4,7 +4,7 @@ A simple C++ utilities library.
 
 ## Version
 
-- Latest version: 1.6.13
+- Latest version: 1.8.17
 
 ## Library Headers
 

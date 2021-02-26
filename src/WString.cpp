@@ -9,9 +9,9 @@
 namespace axl {
 namespace util {
 
-const WString::char_t*const WString::NullCWStr((const WString::char_t*const)0);
-WString::char_t*const WString::NullWStr((WString::char_t*const)0);
-const WString::char_t WString::NullWChar((WString::char_t)L'\0');
+const WString::char_t*const WString::NullCWStr = (const WString::char_t*const)0;
+WString::char_t*const WString::NullWStr = (WString::char_t*const)0;
+const WString::char_t WString::NullWChar = (WString::char_t)L'\0';
 
 WString::WString(size_t length) :
 	is_sensitive(false),

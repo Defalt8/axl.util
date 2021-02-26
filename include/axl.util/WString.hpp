@@ -74,9 +74,9 @@ class AXLUTILCXXAPI WString
 		size_t m_length;
 		size_t m_size;
 	public:
-		const static char_t*const NullCWStr;
+		static const char_t*const NullCWStr;
 		static char_t*const NullWStr;
-		const static char_t NullWChar;
+		static const char_t NullWChar;
 };
 
 } // namespace axl.util

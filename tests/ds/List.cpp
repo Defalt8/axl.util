@@ -5,6 +5,7 @@
 #include "../lib.hpp"
 #include <axl.util/ds/List.hpp>
 #include <axl.util/uc/Tracer.hpp>
+template class axl::util::ds::UniList<axl::util::uc::Tracer>;
 
 #ifdef AXUTIL_BUILD
 #	error("AXUTIL_BUILD defined!")
@@ -145,12 +146,12 @@ int main(int argc, char *argv[])
 		{ // Tracer
 			using namespace axl::util::uc;
 			Tracer::Reset();
-			Assertv(Tracer::TOP == 0, verbose);
-			Assertv(Tracer::ACTIVE == 0, verbose);
+			Assertv(Tracer::Top() == 0, verbose);
+			Assertv(Tracer::Active() == 0, verbose);
 			{
 				UniList<Tracer> unilist;
-				Assertv(Tracer::TOP == 0, verbose);
-				Assertv(Tracer::ACTIVE == 0, verbose);
+				Assertv(Tracer::Top() == 0, verbose);
+				Assertv(Tracer::Active() == 0, verbose);
 				Assertv(unilist.isEmpty(), verbose);
 				Assertv(unilist.first().isNull(), verbose);
 				Assertv(unilist.last().isNull(), verbose);
@@ -158,16 +159,16 @@ int main(int argc, char *argv[])
 				for(i = 1; i <= 5; ++i)
 					unilist.insertLast(i);
 				Assertv(i == 6, verbose);
-				Assertv(Tracer::TOP == 5, verbose);
-				Assertv(Tracer::ACTIVE == 5, verbose);
+				Assertv(Tracer::Top() == 5, verbose);
+				Assertv(Tracer::Active() == 5, verbose);
 				int counter = 0;
 				for(UniList<Tracer>::Iterator it = unilist.first(); it != unilist.end() || !it.isNull(); ++it)
 				{
 					Assertv(it->value == ++counter, verbose);
 				}
 			}
-			Assertv(Tracer::TOP == 5, verbose);
-			Assertv(Tracer::ACTIVE == 0, verbose);
+			Assertv(Tracer::Top() == 5, verbose);
+			Assertv(Tracer::Active() == 0, verbose);
 			Tracer::Reset();
 		}
 		{ // count
