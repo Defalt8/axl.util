@@ -42,6 +42,7 @@ public:
 };
 
 // Polydirectional node
+// template class AXLGLUTILAPI Array<PolyNode<V>*,Allocators::Calloc<V>>;
 template <typename V>
 class PolyNode
 {

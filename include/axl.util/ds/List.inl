@@ -133,7 +133,7 @@ typename UniList<V>::Iterator UniList<V>::first() const
 }
 
 template <typename V>
-typename const UniList<V>::Iterator UniList<V>::end() const
+typename UniList<V>::Iterator UniList<V>::end() const
 {
 	return UniList<V>::Iterator((UniNode<V>*)0);
 }

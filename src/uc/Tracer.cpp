@@ -45,7 +45,6 @@ Tracer& Tracer::operator=(Tracer::value_t p_value)
 #if __cplusplus >= 201103L
 Tracer& Tracer::operator=(Tracer&& tracer)
 {
-	this->id = tracer.id;
 	this->value = tracer.value;
 	return *this;
 }

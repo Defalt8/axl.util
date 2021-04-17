@@ -38,7 +38,7 @@ public:
 public:
 	size_t count() const;
 	Iterator first() const;
-	const Iterator end() const;
+	Iterator end() const;
 	Iterator last() const;
 	Iterator positionOf(const V& value) const;
 	bool isEmpty() const;

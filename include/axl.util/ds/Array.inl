@@ -20,7 +20,7 @@ Array<E,A>::Array(const std::initializer_list<T>& list) :
 	if((this->m_arr_ptr = (E*)A::allocate(a_count)))
 	{
 		this->m_count = a_count;
-		Copy(this->m_arr_ptr, list.begin(), this->m_count);
+		Array<E,A>::Copy<T>(this->m_arr_ptr, list.begin(), this->m_count);
 	}
 }
 
@@ -36,6 +36,19 @@ Array<E,A>::Array(size_t count) :
 }
 
 template <typename E, class A>
+Array<E,A>::Array(const Array<E,A>& array) :
+	m_count(0U),
+	m_arr_ptr((E*)0)
+{
+	size_t a_count = array.count();
+	if((this->m_arr_ptr = (E*)A::allocate(a_count)))
+	{
+		this->m_count = a_count;
+		Array<E,A>::Copy<E>(this->m_arr_ptr, array.array(), a_count);
+	}
+}
+
+template <typename E, class A>
 template <typename T, class V>
 Array<E,A>::Array(const Array<T,V>& array) :
 	m_count(0U),
@@ -45,7 +58,7 @@ Array<E,A>::Array(const Array<T,V>& array) :
 	if((this->m_arr_ptr = (E*)A::allocate(a_count)))
 	{
 		this->m_count = a_count;
-		Array<E,A>::Copy<E,T>(this->m_arr_ptr, array.array(), a_count);
+		Array<E,A>::Copy<T>(this->m_arr_ptr, array.array(), a_count);
 	}
 }
 
@@ -68,7 +81,7 @@ Array<E,A>::Array(const E* array_ptr, size_t count, size_t offset) :
 	if((this->m_arr_ptr = (E*)A::allocate(count)))
 	{
 		this->m_count = count;
-		Array<E,A>::Copy(this->m_arr_ptr, array_ptr, count);
+		Array<E,A>::Copy<E>(this->m_arr_ptr, array_ptr, count);
 	}
 }
 
@@ -81,7 +94,7 @@ Array<E,A>& Array<E,A>::operator=(const std::initializer_list<T>& list)
 	if((this->m_arr_ptr = (E*)A::allocate(a_count)))
 	{
 		this->m_count = a_count;
-		Copy(this->m_arr_ptr, list.begin(), a_count);
+		Array<E,A>::Copy<T>(this->m_arr_ptr, list.begin(), a_count);
 	}
 	return *this;
 }
@@ -95,7 +108,7 @@ Array<E,A>& Array<E,A>::operator=(const Array<T,V>& array)
 	if((this->m_arr_ptr = (E*)A::allocate(a_count)))
 	{
 		this->m_count = a_count;
-		Array<E,A>::Copy<E,T>(this->m_arr_ptr, array.array(), a_count);
+		Array<E,A>::Copy<T>(this->m_arr_ptr, array.array(), a_count);
 	}
 	return *this;
 }

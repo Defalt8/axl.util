@@ -16,7 +16,8 @@ public:
 	template <typename T = E>
 	Array(const std::initializer_list<T>& list);
 	Array(size_t count = 0U);
-	template <typename T = E, class V = Allocator>
+	Array(const Array<E,Allocator>& array);
+	template <typename T, class V = Allocator>
 	Array(const Array<T,V>& array);
 #	if __cplusplus >= 201103L
 	Array(Array<E,Allocator>&& array);

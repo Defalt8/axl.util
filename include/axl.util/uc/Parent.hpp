@@ -5,10 +5,12 @@
 namespace axl {
 namespace util {
 namespace uc {
-
 class AXLUTILCXXAPI Child;
-
-template class AXLUTILCXXAPI axl::util::ds::UniList<axl::util::uc::Child*>;
+}
+namespace ds {
+template class AXLUTILCXXAPI UniList<axl::util::uc::Child*>;
+}
+namespace uc {
 
 class AXLUTILCXXAPI Parent
 {
