@@ -18,6 +18,19 @@
 #	define AXLUTILCXXAPI
 #endif
 
+#if (defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || \
+	(defined(BYTE_ORDER) && BYTE_ORDER == LITTLE_ENDIAN) || \
+    defined(__LITTLE_ENDIAN__) || \
+    defined(_MSC_VER) || \
+    defined(__ARMEL__) || \
+    defined(__THUMBEL__) || \
+    defined(__AARCH64EL__) || \
+    defined(_MIPSEL) || defined(__MIPSEL) || defined(__MIPSEL__)
+#	define AXLUTIL_LITTLE_ENDIAN 1
+#else
+#	define AXLUTIL_LITTLE_ENDIAN 0
+#endif
+
 namespace axl {
 namespace util {
 namespace lib {
