@@ -8,6 +8,7 @@
 #include "WString.hpp"
 #include "File.hpp"
 #include "Random.hpp"
+#include "utils.hpp"
 
 // Data structures
 #include "ds/Array.hpp"
