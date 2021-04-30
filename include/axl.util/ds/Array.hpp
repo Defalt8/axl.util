@@ -46,6 +46,8 @@ public:
 	size_t count() const;
 	E* array();
 	const E* array() const;
+	template <typename T = E>
+	bool copy(const T* src, size_t count, size_t offset = 0U);
 public:
 	template <typename T = E>
 	static E* Copy(E* dest, const T* src, size_t count, size_t offset = 0U);

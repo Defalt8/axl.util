@@ -241,12 +241,23 @@ const E* Array<E,A>::array() const
 
 template <typename E, class A>
 template <typename T>
+bool Array<E,A>::copy(const T* src, size_t count, size_t offset)
+{
+	if(!src || (offset >= this->m_count ) || (count > (this->m_count - offset))) return false;
+	T* dest = &m_arr_ptr[offset];
+	for(size_t i = 0U; i < count; ++i)
+		dest[i] = (E)src[i];
+	return true;
+}
+
+template <typename E, class A>
+template <typename T>
 E* Array<E,A>::Copy(E* dest, const T* src, size_t count, size_t offset)
 {
 	if(!dest || !src) return dest;
 	const T* source = &src[offset];
 	for(size_t i = 0U; i < count; ++i)
-		dest[i] = source[i];
+		dest[i] = (E)source[i];
 	return dest;
 }
 
