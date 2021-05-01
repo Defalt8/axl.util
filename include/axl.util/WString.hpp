@@ -67,8 +67,6 @@ class AXLUTILCXXAPI WString
 		static size_t scwLength(const char_t* cwstr, size_t max=-1);
 		static char_t* scwCopy(const char_t* cwstrsrc, char_t* cwstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
 		static char_t* scCopy(const String::char_t* cwstrsrc, char_t* cwstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
-	public:
-		bool is_sensitive;
 	private:
 		char_t* m_array;
 		size_t m_length;

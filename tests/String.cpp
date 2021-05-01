@@ -45,7 +45,6 @@ int main(int argc, char *argv[])
 	{ // Destructor tests
 		{ // Non-sensitive
 			String str("Hello");
-			Assertv(str.is_sensitive == false, verbose);
 			String::char_t* cstr = str.str();
 			Assertv(0 == strcmp(str.cstr(), "Hello"), verbose);
 			Assertv(cstr == str.cstr(), verbose);
@@ -58,8 +57,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Sensitive
 			String str("Hello World! How are you?");
-			str.is_sensitive = true;
-			Assertv(str.is_sensitive == true, verbose);
 			String::char_t* cstr = str.str();
 			Assertv(0 == strcmp(str.cstr(), "Hello World! How are you?"), verbose);
 			Assertv(cstr == str.cstr(), verbose);
@@ -75,7 +72,6 @@ int main(int argc, char *argv[])
 	{ // Constructor tests
 		{ // Default constructor
 			String str;
-			Assertv(str.is_sensitive == false, verbose);
 			Assertv(str.cstr() != String::NullCStr, verbose);
 			Assertv(str.cstr() == str.str(), verbose);
 			Assertv(str.isNull(), verbose);
@@ -86,7 +82,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Length constructor
 			String str(12);
-			Assertv(str.is_sensitive == false, verbose);
 			Assertv(str.cstr() != String::NullCStr, verbose);
 			Assertv(str.cstr() == str.str(), verbose);
 			Assertv(str.isNull(), verbose);
@@ -106,7 +101,6 @@ int main(int argc, char *argv[])
 		{ // Cstring constructors
 			{
 				String str("");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(str.isNull(), verbose);
@@ -117,7 +111,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -128,7 +121,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				String str("Hello World!", 5);
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -139,7 +131,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				String str("Hello World!", 6, 6);
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -152,7 +143,6 @@ int main(int argc, char *argv[])
 		{ // Copy constructors
 			{
 				String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -162,7 +152,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == strcmp(str.cstr(), "Hello World!"), verbose);
 				String copy_str(str);
 				Assertv(str.cstr() != copy_str.cstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.str() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -173,7 +162,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -191,7 +179,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == strncmp(str.cstr(), "Hello\0World!", 13), verbose);
 				String copy_str(str);
 				Assertv(str.cstr() != copy_str.cstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.str() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -202,7 +189,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				const String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 13U, verbose);
@@ -212,7 +198,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 5);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -224,7 +209,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 6, 6);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -236,7 +220,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 0, 6);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -248,7 +231,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 1, 6);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -260,7 +242,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 7, 6);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -272,7 +253,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 8, 6);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -284,7 +264,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 6, 11);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -296,7 +275,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 6, 12);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -308,7 +286,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 6, 13);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -320,7 +297,6 @@ int main(int argc, char *argv[])
 				{
 					String copy_str(str, 6, 14);
 					Assertv(str.cstr() != copy_str.cstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.str() != String::NullCStr, verbose);
 					Assertv(copy_str.cstr() == copy_str.str(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -334,7 +310,6 @@ int main(int argc, char *argv[])
 		{ // Move constructor
 			{
 				String str(String("Hello World!"));
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -349,7 +324,6 @@ int main(int argc, char *argv[])
 		{ // Copy assignment operators
 			{
 				const String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 13U, verbose);
@@ -357,7 +331,6 @@ int main(int argc, char *argv[])
 				Assertv(str.cstr()[12] == String::NullChar, verbose);
 				Assertv(0 == strcmp(str.cstr(), "Hello World!"), verbose);
 				String copy_str;
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.cstr() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(copy_str.isNull(), verbose);
@@ -366,7 +339,6 @@ int main(int argc, char *argv[])
 				Assertv(copy_str.cstr()[0] == String::NullChar, verbose);
 				copy_str = str;
 				Assertv(str.cstr() != copy_str.cstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.str() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -377,7 +349,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				String str("Hello World!");
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.cstr() == str.str(), verbose);
 				Assertv(!str.isNull(), verbose);
@@ -394,7 +365,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == strcmp(str.cstr(), "Hello"), verbose);
 				Assertv(0 == strncmp(str.cstr(), "Hello\0World!", 13), verbose);
 				String copy_str;
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.cstr() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(copy_str.isNull(), verbose);
@@ -403,7 +373,6 @@ int main(int argc, char *argv[])
 				Assertv(copy_str.cstr()[0] == String::NullChar, verbose);
 				copy_str = str;
 				Assertv(str.cstr() != copy_str.cstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.str() != String::NullCStr, verbose);
 				Assertv(copy_str.cstr() == copy_str.str(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -414,14 +383,12 @@ int main(int argc, char *argv[])
 			}
 			{ // Cstring assignment operator
 				String str;
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(str.isNull(), verbose);
 				Assertv(str.size() == 1U, verbose);
 				Assertv(str.length() == 0U, verbose);
 				Assertv(str.cstr()[0] == String::NullChar, verbose);
 				str = "Hello World!";
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 13U, verbose);
@@ -429,7 +396,6 @@ int main(int argc, char *argv[])
 				Assertv(str.cstr()[12] == String::NullChar, verbose);
 				Assertv(0 == strcmp(str.cstr(), "Hello World!"), verbose);
 				str = "Jello";
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 6U, verbose);
@@ -439,7 +405,6 @@ int main(int argc, char *argv[])
 				const String::char_t* cstr = str.cstr();
 				str = "Hello";
 				Assertv(str.cstr() == cstr, verbose);
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 6U, verbose);
@@ -450,7 +415,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Move assignment operators
 			const String str = String("Hello World!");
-			Assertv(str.is_sensitive == false, verbose);
 			Assertv(str.cstr() != String::NullCStr, verbose);
 			Assertv(!str.isNull(), verbose);
 			Assertv(str.size() == 13U, verbose);
@@ -486,7 +450,6 @@ int main(int argc, char *argv[])
 				const String str1 = "Hello Mars!";
 				const String str2 = "This is Earth.";
 				String str = str1 + str2;
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 26U, verbose);
@@ -498,7 +461,6 @@ int main(int argc, char *argv[])
 				const String str1 = "Hello Mars!";
 				const String::char_t* str2 = "This is Earth.";
 				String str = str1 + str2;
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 26U, verbose);
@@ -510,7 +472,6 @@ int main(int argc, char *argv[])
 				String str = "Hello Mars!";
 				const String str2 = "This is Earth.";
 				str += str2;
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 26U, verbose);
@@ -522,7 +483,6 @@ int main(int argc, char *argv[])
 				String str = "Hello Mars!";
 				const String::char_t* str2 = "This is Earth.";
 				str += str2;
-				Assertv(str.is_sensitive == false, verbose);
 				Assertv(str.cstr() != String::NullCStr, verbose);
 				Assertv(!str.isNull(), verbose);
 				Assertv(str.size() == 26U, verbose);

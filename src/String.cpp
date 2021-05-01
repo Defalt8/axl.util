@@ -13,7 +13,6 @@ String::char_t*const String::NullStr = (String::char_t*)0;
 const String::char_t String::NullChar = (String::char_t)'\0';
 
 String::String(size_t length) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -31,7 +30,6 @@ String::String(size_t length) :
 	}
 }
 String::String(const String::char_t* cstring) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -51,7 +49,6 @@ String::String(const String::char_t* cstring) :
 	}
 }
 String::String(const String::char_t* cstring, size_t length, size_t offset) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -71,7 +68,6 @@ String::String(const String::char_t* cstring, size_t length, size_t offset) :
 	}
 }
 String::String(const String& tocopy) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -91,7 +87,6 @@ String::String(const String& tocopy) :
 	}
 }
 String::String(const String& tocopy, size_t length, size_t offset) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -113,7 +108,6 @@ String::String(const String& tocopy, size_t length, size_t offset) :
 }
 #if (__cplusplus >= 201103)
 String::String(String&& tomove) :
-	is_sensitive(tomove.is_sensitive),
 	m_size(tomove.m_size),
 	m_length(tomove.m_length),
 	m_array(tomove.m_array)
@@ -130,7 +124,6 @@ String::~String()
 String& String::operator=(String&& tomove) 
 {
 	this->destroy();
-	this->is_sensitive = tomove.is_sensitive;
 	this->m_length = tomove.m_length;
 	this->m_size = tomove.m_size;
 	this->m_array = tomove.m_array;
@@ -326,24 +319,6 @@ void String::destroy()
 {
 	if(m_array)
 	{
-		if(is_sensitive)
-		{
-			if(m_size <= 12U)
-			{
-				for(size_t i = 0U; i < m_size; ++i)
-					m_array[i] = (char_t)0xCC;
-			}
-			else
-			{
-				const size_t frac_size = m_size * sizeof(char_t) / sizeof(long);
-				const size_t rem_loc = frac_size * sizeof(long) / sizeof(char_t);
-				unsigned long *lp = (unsigned long*)m_array;
-				for(size_t i = 0U; i < frac_size; ++i)
-					lp[i] = 0xCCCCCCCCUL;
-				for(size_t i = rem_loc; i < m_size; ++i)
-					m_array[i] = (char_t)0xCC;
-			}
-		}
 		free(m_array);
 		m_array = NullStr;
 		m_size = 0U;

@@ -14,7 +14,6 @@ WString::char_t*const WString::NullWStr = (WString::char_t*const)0;
 const WString::char_t WString::NullWChar = (WString::char_t)L'\0';
 
 WString::WString(size_t length) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -32,7 +31,6 @@ WString::WString(size_t length) :
 	}
 }
 WString::WString(const WString::char_t* cwstring) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -52,7 +50,6 @@ WString::WString(const WString::char_t* cwstring) :
 	}
 }
 WString::WString(const WString::char_t* cstring, size_t length, size_t offset) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -72,7 +69,6 @@ WString::WString(const WString::char_t* cstring, size_t length, size_t offset) :
 	}
 }
 WString::WString(const WString& tocopy) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -92,7 +88,6 @@ WString::WString(const WString& tocopy) :
 	}
 }
 WString::WString(const WString& tocopy, size_t length, size_t offset) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -113,7 +108,6 @@ WString::WString(const WString& tocopy, size_t length, size_t offset) :
 	}
 }
 WString::WString(const String& tocopy) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -133,7 +127,6 @@ WString::WString(const String& tocopy) :
 	}
 }
 WString::WString(const String& tocopy, size_t length, size_t offset) :
-	is_sensitive(false),
 	m_size(0U),
 	m_length(0U)
 {
@@ -156,7 +149,6 @@ WString::WString(const String& tocopy, size_t length, size_t offset) :
 }
 #if (__cplusplus >= 201103)
 WString::WString(WString&& tomove) :
-	is_sensitive(tomove.is_sensitive),
 	m_size(tomove.m_size),
 	m_length(tomove.m_length),
 	m_array(tomove.m_array)
@@ -173,7 +165,6 @@ WString::~WString()
 WString& WString::operator=(WString&& tomove) 
 {
 	this->destroy();
-	this->is_sensitive = tomove.is_sensitive;
 	this->m_length = tomove.m_length;
 	this->m_size = tomove.m_size;
 	this->m_array = tomove.m_array;
@@ -388,24 +379,6 @@ void WString::destroy()
 {
 	if(m_array)
 	{
-		if(is_sensitive)
-		{
-			if(m_size <= 12U)
-			{
-				for(size_t i = 0U; i < m_size; ++i)
-					m_array[i] = (char_t)0xCCCC;
-			}
-			else
-			{
-				const size_t frac_size = m_size * sizeof(char_t) / sizeof(long);
-				const size_t rem_loc = frac_size * sizeof(long) / sizeof(char_t);
-				unsigned long *lp = (unsigned long*)m_array;
-				for(size_t i = 0U; i < frac_size; ++i)
-					lp[i] = 0xCCCCCCCCUL;
-				for(size_t i = rem_loc; i < m_size; ++i)
-					m_array[i] = (char_t)0xCCCC;
-			}
-		}
 		free(m_array);
 		m_array = NullWStr;
 		m_size = 0U;

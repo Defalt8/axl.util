@@ -60,7 +60,6 @@ int main(int argc, char *argv[])
 	{ // Destructor tests
 		{ // Non-sensitive
 			WString wstr(L"Hello");
-			Assertv(wstr.is_sensitive == false, verbose);
 			WString::char_t* cwstr = wstr.wstr();
 			Assertv(0 == wcscmp(wstr.cwstr(), L"Hello"), verbose);
 			Assertv(cwstr == wstr.cwstr(), verbose);
@@ -73,8 +72,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Sensitive
 			WString wstr(L"Hello World! How are you?");
-			wstr.is_sensitive = true;
-			Assertv(wstr.is_sensitive == true, verbose);
 			WString::char_t* cwstr = wstr.wstr();
 			Assertv(0 == wcscmp(wstr.cwstr(), L"Hello World! How are you?"), verbose);
 			Assertv(cwstr == wstr.cwstr(), verbose);
@@ -90,7 +87,6 @@ int main(int argc, char *argv[])
 	{ // Constructor tests
 		{ // Default constructor
 			WString wstr;
-			Assertv(wstr.is_sensitive == false, verbose);
 			Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 			Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 			Assertv(wstr.isNull(), verbose);
@@ -101,7 +97,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Length constructor
 			WString wstr(12);
-			Assertv(wstr.is_sensitive == false, verbose);
 			Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 			Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 			Assertv(wstr.isNull(), verbose);
@@ -121,7 +116,6 @@ int main(int argc, char *argv[])
 		{ // Cstring constructors
 			{
 				WString wstr(L"");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(wstr.isNull(), verbose);
@@ -132,7 +126,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -143,7 +136,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				WString wstr(L"Hello World!", 5);
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -154,7 +146,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				WString wstr(L"Hello World!", 6, 6);
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -167,7 +158,6 @@ int main(int argc, char *argv[])
 		{ // Copy constructors
 			{
 				WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -177,7 +167,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == wcscmp(wstr.cwstr(), L"Hello World!"), verbose);
 				WString copy_str(wstr);
 				Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -188,7 +177,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -206,7 +194,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == wcsncmp(wstr.cwstr(), L"Hello\0World!", 13), verbose);
 				WString copy_str(wstr);
 				Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -217,7 +204,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				const WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 13U, verbose);
@@ -227,7 +213,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 5);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -239,7 +224,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 6, 6);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -251,7 +235,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 0, 6);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -263,7 +246,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 1, 6);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -275,7 +257,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 7, 6);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -287,7 +268,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 8, 6);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -299,7 +279,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 6, 11);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(!copy_str.isNull(), verbose);
@@ -311,7 +290,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 6, 12);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -323,7 +301,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 6, 13);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -335,7 +312,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(wstr, 6, 14);
 					Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 					Assertv(copy_str.isNull(), verbose);
@@ -352,7 +328,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == strcmp(str.cstr(), "Hello World!"), verbose);
 				{
 					WString copy_str(str);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 13U, verbose);
@@ -362,7 +337,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 5);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 6U, verbose);
@@ -372,7 +346,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 6, 6);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 7U, verbose);
@@ -382,7 +355,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 0, 6);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 1U, verbose);
@@ -392,7 +364,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 1, 6);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 2U, verbose);
@@ -403,7 +374,6 @@ int main(int argc, char *argv[])
 				{
 					WString copy_str(str, 7, 6);
 					
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 7U, verbose);
@@ -413,7 +383,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 8, 6);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 7U, verbose);
@@ -423,7 +392,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 6, 11);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 2U, verbose);
@@ -433,7 +401,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 6, 12);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 1U, verbose);
@@ -443,7 +410,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 6, 13);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 1U, verbose);
@@ -453,7 +419,6 @@ int main(int argc, char *argv[])
 				}
 				{
 					WString copy_str(str, 6, 14);
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 1U, verbose);
@@ -466,7 +431,6 @@ int main(int argc, char *argv[])
 		{ // Move constructor
 			{
 				WString wstr(WString(L"Hello World!"));
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -481,7 +445,6 @@ int main(int argc, char *argv[])
 		{ // Copy assignment operators
 			{
 				const WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 13U, verbose);
@@ -489,7 +452,6 @@ int main(int argc, char *argv[])
 				Assertv(wstr.cwstr()[12] == WString::NullWChar, verbose);
 				Assertv(0 == wcscmp(wstr.cwstr(), L"Hello World!"), verbose);
 				WString copy_str;
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(copy_str.isNull(), verbose);
@@ -498,7 +460,6 @@ int main(int argc, char *argv[])
 				Assertv(copy_str.cwstr()[0] == WString::NullWChar, verbose);
 				copy_str = wstr;
 				Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -509,7 +470,6 @@ int main(int argc, char *argv[])
 			}
 			{
 				WString wstr(L"Hello World!");
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.cwstr() == wstr.wstr(), verbose);
 				Assertv(!wstr.isNull(), verbose);
@@ -526,7 +486,6 @@ int main(int argc, char *argv[])
 				Assertv(0 == wcscmp(wstr.cwstr(), L"Hello"), verbose);
 				Assertv(0 == wcsncmp(wstr.cwstr(), L"Hello\0World!", 13), verbose);
 				WString copy_str;
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(copy_str.isNull(), verbose);
@@ -535,7 +494,6 @@ int main(int argc, char *argv[])
 				Assertv(copy_str.cwstr()[0] == WString::NullWChar, verbose);
 				copy_str = wstr;
 				Assertv(wstr.cwstr() != copy_str.cwstr(), verbose);
-				Assertv(copy_str.is_sensitive == false, verbose);
 				Assertv(copy_str.wstr() != WString::NullCWStr, verbose);
 				Assertv(copy_str.cwstr() == copy_str.wstr(), verbose);
 				Assertv(!copy_str.isNull(), verbose);
@@ -553,7 +511,6 @@ int main(int argc, char *argv[])
 					WString copy_str;
 					Assertv(copy_str.isNull(), verbose);
 					copy_str = str;
-					Assertv(copy_str.is_sensitive == false, verbose);
 					Assertv(copy_str.cwstr() != WString::NullCWStr, verbose);
 					Assertv(!copy_str.isNull(), verbose);
 					Assertv(copy_str.size() == 13U, verbose);
@@ -564,14 +521,12 @@ int main(int argc, char *argv[])
 			}
 			{ // Cstring assignment operator
 				WString wstr;
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(wstr.isNull(), verbose);
 				Assertv(wstr.size() == 1U, verbose);
 				Assertv(wstr.length() == 0U, verbose);
 				Assertv(wstr.cwstr()[0] == WString::NullWChar, verbose);
 				wstr = L"Hello World!";
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 13U, verbose);
@@ -579,7 +534,6 @@ int main(int argc, char *argv[])
 				Assertv(wstr.cwstr()[12] == WString::NullWChar, verbose);
 				Assertv(0 == wcscmp(wstr.cwstr(), L"Hello World!"), verbose);
 				wstr = L"Jello";
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 6U, verbose);
@@ -589,7 +543,6 @@ int main(int argc, char *argv[])
 				const WString::char_t* cwstr = wstr.cwstr();
 				wstr = L"Hello";
 				Assertv(wstr.cwstr() == cwstr, verbose);
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 6U, verbose);
@@ -600,7 +553,6 @@ int main(int argc, char *argv[])
 		}
 		{ // Move assignment operators
 			const WString wstr = WString(L"Hello World!");
-			Assertv(wstr.is_sensitive == false, verbose);
 			Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 			Assertv(!wstr.isNull(), verbose);
 			Assertv(wstr.size() == 13U, verbose);
@@ -636,7 +588,6 @@ int main(int argc, char *argv[])
 				const WString str1 = L"Hello Mars!";
 				const WString str2 = L"This is Earth.";
 				WString wstr = str1 + str2;
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 26U, verbose);
@@ -648,7 +599,6 @@ int main(int argc, char *argv[])
 				const WString str1 = L"Hello Mars!";
 				const WString::char_t* str2 = L"This is Earth.";
 				WString wstr = str1 + str2;
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 26U, verbose);
@@ -660,7 +610,6 @@ int main(int argc, char *argv[])
 				WString wstr = L"Hello Mars!";
 				const WString str2 = L"This is Earth.";
 				wstr += str2;
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 26U, verbose);
@@ -672,7 +621,6 @@ int main(int argc, char *argv[])
 				WString wstr = L"Hello Mars!";
 				const WString::char_t* str2 = L"This is Earth.";
 				wstr += str2;
-				Assertv(wstr.is_sensitive == false, verbose);
 				Assertv(wstr.cwstr() != WString::NullCWStr, verbose);
 				Assertv(!wstr.isNull(), verbose);
 				Assertv(wstr.size() == 26U, verbose);
