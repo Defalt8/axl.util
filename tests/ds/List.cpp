@@ -129,6 +129,32 @@ int main(int argc, char *argv[])
 			while(!unilist.isEmpty())
 			{
 				Assertv(++counter == unilist.removeFirst(), verbose);
+				Assertv(unilist.count() == (5 - counter), verbose);
+			}
+			Assertv(unilist.count() == 0, verbose);
+		}
+		{ // removeAt
+			UniList<int> unilist;
+			int i;
+			for(i = 1; i <= 5; ++i)
+				if(!unilist.insertLast(i)) break;;
+			Assertv(i == 6, verbose);
+			UniList<int>::Iterator it = unilist.first();
+			it += 3;
+			Assertv(unilist.removeAt(it), verbose);
+			Assertv(unilist.count() == 4, verbose);
+			// Assertv(unilist.count() == counter, verbose);
+		}
+		{ // remove
+			UniList<int> unilist;
+			int i;
+			for(i = 1; i <= 5; ++i)
+				if(!unilist.insertLast(i)) break;;
+			Assertv(i == 6, verbose);
+			for(i = 1; i <= 5; ++i)
+			{
+				Assertv(unilist.remove(i), verbose);
+				Assertv(unilist.count() == (5 - i), verbose);
 			}
 		}
 		{ // removeAll

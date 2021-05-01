@@ -14,19 +14,24 @@ public:
 	class Iterator
 	{
 	public:
-		Iterator(UniNode<V> *node = (UniNode<V>*)0);
+		Iterator(UniList<V> *list = (UniList<V>*)0, UniNode<V> *node = (UniNode<V>*)0);
+		Iterator(const Iterator& iterator);
 		V& operator*();
 		const V& operator*() const;
 		V* operator->();
 		const V* operator->() const;
 		Iterator operator+(size_t offset) const;
+		Iterator& operator+=(size_t offset);
 		Iterator& operator++();
 		Iterator operator++(int);
 		bool operator==(const Iterator& iterator) const;
 		bool operator!=(const Iterator& iterator) const;
 		bool isNull() const;
+		bool isNotNull() const;
+		UniList<V>* list() const;
 	private:
-		UniNode<V> *node;
+		UniList<V> *m_list;
+		UniNode<V> *m_node;
 		friend class UniList<V>;
 	};
 public:
@@ -47,11 +52,12 @@ public:
 	template <typename T = V>
 	bool insertLast(const T& value);
 	template <typename T = V>
-	bool insertAfter(const T& value, const Iterator& position = Iterator((UniNode<V>*)0));
+	bool insertAfter(const T& value, const Iterator& position = Iterator((UniList<V>*)0, (UniNode<V>*)0));
 	template <typename T = V>
 	bool insertAfterValue(const T& value, const V& after_value);
 	V removeFirst();
 	bool remove(const V& value);
+	bool removeAt(const UniList<V>::Iterator& iterator);
 	void removeAll();
 private:
 	UniNode<V>* m_first;

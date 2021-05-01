@@ -9,84 +9,114 @@ namespace ds {
 //
 
 template <typename V>
-UniList<V>::Iterator::Iterator(UniNode<V> *p_node) :
-	node(p_node)
+UniList<V>::Iterator::Iterator(UniList<V> *p_list, UniNode<V> *p_node) :
+	m_list(p_list),
+	m_node(p_node)
+{}
+
+template <typename V>
+UniList<V>::Iterator::Iterator(const UniList<V>::Iterator& iterator) :
+	m_list(iterator.m_list),
+	m_node(iterator.m_node)
 {}
 
 template <typename V>
 V& UniList<V>::Iterator::operator*()
 {
-	if(!this->node) throw "Null pointer";
-	return this->node->value;
+	if(!this->m_node) throw "Null pointer";
+	return this->m_node->value;
 }
 
 template <typename V>
 const V& UniList<V>::Iterator::operator*() const
 {
-	if(!this->node) throw "Null pointer";
-	return this->node->value;
+	if(!this->m_node) throw "Null pointer";
+	return this->m_node->value;
 }
 
 template <typename V>
 V* UniList<V>::Iterator::operator->()
 {
-	if(!this->node) throw "Null pointer";
-	return &this->node->value;
+	if(!this->m_node) throw "Null pointer";
+	return &this->m_node->value;
 }
 
 template <typename V>
 const V* UniList<V>::Iterator::operator->() const
 {
-	if(!this->node) throw "Null pointer";
-	return &this->node->value;
+	if(!this->m_node) throw "Null pointer";
+	return &this->m_node->value;
 }
 
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::Iterator::operator+(size_t offset) const
 {
-	UniList<V>::Iterator iterator(this->node);
+	UniList<V>::Iterator iterator(this->m_list, this->m_node);
 	size_t counter = 0;
-	while(iterator.node && ++counter <= offset)
+	while(iterator.m_node && ++counter <= offset)
 	{
-		iterator.node = iterator.node->next;
+		iterator.m_node = iterator.m_node->next;
 	}
 	return iterator;
+}
+
+template <typename V>
+typename UniList<V>::Iterator& UniList<V>::Iterator::operator+=(size_t offset)
+{
+	size_t counter = 0;
+	while(this->m_node && ++counter <= offset)
+	{
+		this->m_node = this->m_node->next;
+	}
+	return *this;
 }
 
 
 template <typename V>
 typename UniList<V>::Iterator& UniList<V>::Iterator::operator++()
 {
-	if(this->node)
-		this->node = this->node->next;
+	if(this->m_node)
+		this->m_node = this->m_node->next;
 	return *this;
 }
 
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::Iterator::operator++(int)
 {
-	UniList<V>::Iterator iterator(this->node);
-	if(this->node)
-		this->node = this->node->next;
+	UniList<V>::Iterator iterator(this->m_list, this->m_node);
+	if(this->m_node)
+		this->m_node = this->m_node->next;
 	return iterator;
 }
 
 template <typename V>
 bool UniList<V>::Iterator::operator==(const Iterator& iterator) const
 {
-	return this->node == iterator.node;
+	return this->m_list == iterator.m_list && this->m_node == iterator.m_node;
 }
 
 template <typename V>
 bool UniList<V>::Iterator::operator!=(const Iterator& iterator) const
 {
-	return this->node != iterator.node;
+	return this->m_node != iterator.m_node;
 }
 
 template <typename V>
 bool UniList<V>::Iterator::isNull() const
 {
-	return (UniNode<V>*)0 == this->node;
+	return (UniNode<V>*)0 == this->m_node;
+}
+
+template <typename V>
+bool UniList<V>::Iterator::isNotNull() const
+{
+	return (UniNode<V>*)0 != this->m_node;
+}
+
+template <typename V>
+UniList<V>* UniList<V>::Iterator::list() const
+{
+	return this->m_list;
 }
 
 //
@@ -129,26 +159,26 @@ size_t UniList<V>::count() const
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::first() const
 {
-	return UniList<V>::Iterator(this->m_first);
+	return UniList<V>::Iterator((UniList<V>*)this, this->m_first);
 }
 
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::end() const
 {
-	return UniList<V>::Iterator((UniNode<V>*)0);
+	return UniList<V>::Iterator((UniList<V>*)0, (UniNode<V>*)0);
 }
 
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::last() const
 {
-	return UniList<V>::Iterator(this->m_last);
+	return UniList<V>::Iterator((UniList<V>*)this, this->m_last);
 }
 
 template <typename V>
 typename UniList<V>::Iterator UniList<V>::positionOf(const V& value) const
 {
-	Iterator it = this->m_first;
-	for(; it != (UniNode<V>*)0; ++it)
+	Iterator it((UniList<V>*)this, this->m_first);
+	for(; it.m_node != (UniNode<V>*)0; ++it)
 	{
 		if(*it == value) break;
 	}
@@ -209,9 +239,9 @@ template <typename T>
 bool UniList<V>::insertAfter(const T& value, const UniList<V>::Iterator& position)
 {
 	if(position.isNull()) return this->insertFirst(value);
-	UniNode<V>* new_node = new UniNode<V>(value, position.node->next);
+	UniNode<V>* new_node = new UniNode<V>(value, position.m_node->next);
 	if(!new_node) return false;
-	position.node->next = new_node;
+	position.m_node->next = new_node;
 	++this->m_count;
 	return true;
 }
@@ -220,7 +250,7 @@ template <typename V>
 template <typename T>
 bool UniList<V>::insertAfterValue(const T& value, const V& after_value)
 {
-	for(Iterator it = this->m_first; it != (UniNode<V>*)0; ++it)
+	for(Iterator it((UniList<V>*)this, this->m_first); it.m_node != (UniNode<V>*)0; ++it)
 	{
 		if(*it == after_value)
 			return this->insertAfter(value, it);
@@ -281,6 +311,45 @@ bool UniList<V>::remove(const V& value)
 			for(UniNode<V>* it = first->next, *prev = (UniNode<V>*)first; it != (UniNode<V>*)0; prev = it, it = it->next)
 			{
 				if(it && it->value == value)
+				{
+					if(prev) prev->next = it->next;
+					delete it;
+					if(this->m_count <= 0) throw "List element count is off.";
+					--this->m_count;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+template <typename V>
+bool UniList<V>::removeAt(const UniList<V>::Iterator& iterator)
+{
+	if(this->m_first && iterator.m_list == (UniList<V>*)this)
+	{
+		UniNode<V>* first = this->m_first;
+		if((*iterator) == first->value)
+		{
+			if(this->m_first == this->m_last)
+			{
+				this->m_first = this->m_last = (UniNode<V>*)0;
+			}
+			else
+			{
+				this->m_first = first->next;
+			}
+			delete first;
+			if(this->m_count <= 0) throw "List element count is off.";
+			--this->m_count;
+			return true;
+		}
+		else
+		{
+			for(UniNode<V>* it = first->next, *prev = (UniNode<V>*)first; it != (UniNode<V>*)0; prev = it, it = it->next)
+			{
+				if(it && it->value == (*iterator))
 				{
 					if(prev) prev->next = it->next;
 					delete it;
