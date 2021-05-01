@@ -508,6 +508,20 @@ String::char_t* String::scCopy(const String::char_t* src, String::char_t* dest, 
 		ac_dest[i] = ac_src[i];
 	return dest;
 }
+bool String::scEquals(const String::char_t* cstr1, const String::char_t* cstr2)
+{
+	if(!cstr1 || !cstr2) return false;
+	for(size_t i = 0; i < (size_t)-1; ++i)
+	{
+		if(cstr1[i] == '\0' && cstr2[i] == '\0')
+			return true;
+		else if(cstr1[i] == '\0' ^ cstr2[i] == '\0')
+			return false;
+		else if(cstr1[i] != cstr2[i])
+			return false;
+	}
+	return false;
+}
 
 } // namespace axl.util
 } // namespace axl

@@ -56,6 +56,18 @@ int main(int argc, char *argv[])
 			WString::scCopy("Hello World!", buffer, 12, 0, 3);
 			Assertv(0 == wcsncmp(buffer, L"123Hello World!", 16), verbose);
 		}
+		{ // scEqual
+			const WString::char_t* hello = L"Hello World!";
+			Assertv(!WString::scwEquals(0, 0), verbose);
+			Assertv(WString::scwEquals(L"", L""), verbose);
+			Assertv(WString::scwEquals(L"1", L"1"), verbose);
+			Assertv(!WString::scwEquals(L"1", L"2"), verbose);
+			Assertv(WString::scwEquals(hello, L"Hello World!"), verbose);
+			Assertv(!WString::scwEquals(hello, L"Hello World! "), verbose);
+			Assertv(!WString::scwEquals(hello, L"Hello World"), verbose);
+			Assertv(!WString::scwEquals(hello, L"Hello"), verbose);
+			Assertv(!WString::scwEquals(hello, L"Hello Morld!"), verbose);
+		}
 	}
 	{ // Destructor tests
 		{ // Non-sensitive

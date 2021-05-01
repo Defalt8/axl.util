@@ -59,8 +59,9 @@ class AXLUTILCXXAPI String
 		String toLower() const;
 		String& format(const char_t* format, ...);
 	public:
-		static size_t scLength(const char_t* cstr, size_t max=-1);
-		static char_t* scCopy(const char_t* cstrsrc, char_t* cstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
+		static size_t scLength(const String::char_t* cstr, size_t max=-1);
+		static char_t* scCopy(const String::char_t* cstrsrc, String::char_t* cstrdest, size_t length, size_t srcoffset = 0U, size_t destoffset = 0U);
+		static bool scEquals(const String::char_t* cstr1, const String::char_t* cstr2);
 	private:
 		char_t* m_array;
 		size_t m_length;

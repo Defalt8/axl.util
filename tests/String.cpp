@@ -41,6 +41,18 @@ int main(int argc, char *argv[])
 			String::scCopy("Hello World!", buffer, 12, 0, 3);
 			Assertv(0 == strncmp(buffer, "123Hello World!", 16), verbose);
 		}
+		{ // scEqual
+			const String::char_t* hello = "Hello World!";
+			Assertv(!String::scEquals(0, 0), verbose);
+			Assertv(String::scEquals("", ""), verbose);
+			Assertv(String::scEquals("1", "1"), verbose);
+			Assertv(!String::scEquals("1", "2"), verbose);
+			Assertv(String::scEquals(hello, "Hello World!"), verbose);
+			Assertv(!String::scEquals(hello, "Hello World! "), verbose);
+			Assertv(!String::scEquals(hello, "Hello World"), verbose);
+			Assertv(!String::scEquals(hello, "Hello"), verbose);
+			Assertv(!String::scEquals(hello, "Hello Morld!"), verbose);
+		}
 	}
 	{ // Destructor tests
 		{ // Non-sensitive

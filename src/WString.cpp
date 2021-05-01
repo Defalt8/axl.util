@@ -591,6 +591,20 @@ WString::char_t* WString::scCopy(const String::char_t* src, WString::char_t* des
 		ac_dest[i] = (char_t)ac_src[i];
 	return dest;
 }
+bool WString::scwEquals(const WString::char_t* cwstr1, const WString::char_t* cwstr2)
+{
+	if(!cwstr1 || !cwstr2) return false;
+	for(size_t i = 0; i < (size_t)-1; ++i)
+	{
+		if(cwstr1[i] == L'\0' && cwstr2[i] == L'\0')
+			return true;
+		else if(cwstr1[i] == L'\0' ^ cwstr2[i] == L'\0')
+			return false;
+		else if(cwstr1[i] != cwstr2[i])
+			return false;
+	}
+	return false;
+}
 
 } // namespace axl.util
 } // namespace axl
