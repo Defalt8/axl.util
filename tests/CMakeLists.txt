@@ -8,6 +8,7 @@ add_executable( "axl.util.file" "File.cpp" )
 add_executable( "axl.util.array" "ds/Array.cpp" )
 add_executable( "axl.util.list" "ds/List.cpp" )
 add_executable( "axl.util.node" "ds/Node.cpp" )
+add_executable( "axl.util.serial" "Serial.cpp" )
 
 set_target_properties(
 	"axl.util.lib"
@@ -17,6 +18,7 @@ set_target_properties(
 	"axl.util.array"
 	"axl.util.list"
 	"axl.util.node"
+	"axl.util.serial"
 	PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY "${AXLUTIL_RUNTIME_DIR}"
 )

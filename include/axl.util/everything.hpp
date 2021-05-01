@@ -8,6 +8,8 @@
 #include "WString.hpp"
 #include "File.hpp"
 #include "Random.hpp"
+#include "Serial.hpp"
+#include "Protocol.hpp"
 #include "utils.hpp"
 
 // Data structures
@@ -22,3 +24,6 @@
 #include "uc/Parent.hpp"
 #include "uc/Child.hpp"
 #include "uc/Object.hpp"
+
+// Protocols
+#include "protocols/V0.hpp"
