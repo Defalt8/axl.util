@@ -44,23 +44,23 @@ ds::Array<byte, axl::util::ds::Allocators::Malloc<byte>> V0::serialize(const Ser
 		refer<uint32>(&serial_data[0]) = htonl(total_size);
 		refer<uint32>(&serial_data[4]) = htonl(object_count);
 		size_t object_index = 0, header_size = (8 + object_count * 8), size_accum = 0U;
-		axl::util::ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first();
-		while(it.isNotNull())
+		for(axl::util::ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first(); it != object_registry.end(); ++it)
 		{
 			refer<uint32>(&serial_data[8 + object_index * 8]) = htonl((*it).size);
 			refer<uint32>(&serial_data[12 + object_index * 8]) = htonl(header_size + size_accum);
 			size_accum += (*it).size;
 			++object_index;
-			++it;
 		}
 		object_index = 0;
-		it = object_registry.first();
-		while(it.isNotNull())
+		for(axl::util::ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first(); it != object_registry.end(); ++it)
 		{
+			byte* mem_ptr = (byte*)((*it).mem_ptr);
+			uint8 references = (*it).references;
+			for(uint8 i = 0; i < references; ++i)
+				mem_ptr = *((byte**)mem_ptr);
 			size_t offset = htonl(refer<uint32>(&serial_data[12 + object_index * 8]));
-			serial_data.copy((byte*)((*it).mem_ptr), (*it).size, offset);
+			serial_data.copy(mem_ptr, (*it).size, offset);
 			++object_index;
-			++it;
 		}
 	}
 	return serial_data;
@@ -71,12 +71,10 @@ bool V0::deserialize(Serial& serial, const axl::util::ds::Array<byte, axl::util:
 	size_t total_data_size = 0U, total_size = 0U, object_count = 0U;
 	const axl::util::ds::UniList<axl::util::Serial::ObjectInfo>& object_registry = serial.getObjectRegistry();
 	{ // determine the total size required
-		ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first();
-		while(it.isNotNull())
+		for(axl::util::ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first(); it != object_registry.end(); ++it)
 		{
 			total_data_size += (*it).size;
 			++object_count;
-			++it;
 		}
 		total_size = 4 + // uint32 for total serial data size
 			4 + // uint32 for object count
@@ -88,21 +86,24 @@ bool V0::deserialize(Serial& serial, const axl::util::ds::Array<byte, axl::util:
 			total_data_size; // total data size
 			
 	}
-	if(serial_data.count() < total_size) return false;
+	// if(serial_data.count() < total_size) return false;
 	// read header
 	uint32 r_total_size = htonl(refer<uint32>(&serial_data[0]));
 	uint32 r_object_count = htonl(refer<uint32>(&serial_data[4]));
 	if(r_total_size < total_size || r_object_count != object_count) return false;
 	size_t object_index = 0, header_size = (8 + object_count * 8);
-	ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first();
-	while(it.isNotNull())
+	for(axl::util::ds::UniList<Serial::ObjectInfo>::Iterator it = object_registry.first(); it != object_registry.end(); ++it)
 	{
 		size_t size = htonl(refer<uint32>(&serial_data[8 + object_index * 8]));
 		size_t offset = htonl(refer<uint32>(&serial_data[12 + object_index * 8]));
+		if(!serial.onDeserialize(axl::util::Serial::ObjectInfo((*it).mem_ptr, (*it).references, size, (*it).object_id))) return false;
+		byte* mem_ptr = (byte*)((*it).mem_ptr);
+		uint8 references = (*it).references;
+		for(uint8 i = 0; i < references; ++i)
+			mem_ptr = *(byte**)mem_ptr;
 		if(size != (*it).size) return false;
-		axl::util::ds::Array<byte>::Copy((byte*)((*it).mem_ptr), &serial_data[offset], size, 0);
+		axl::util::ds::Array<byte>::Copy(mem_ptr, &serial_data[offset], size, 0);
 		++object_index;
-		++it;
 	}
 	return true;
 }

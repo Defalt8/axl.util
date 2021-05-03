@@ -7,26 +7,46 @@
 class Person : public axl::util::Serial
 {
 	public:
-		Person(const char* p_name = "", axl::util::uint8 p_age = 0, float p_height = 0.0f, float p_weight = 0.0f) :
+		Person(const axl::util::String& p_name = axl::util::String(), axl::util::uint8 p_age = 0, float p_height = 0.0f, float p_weight = 0.0f) :
 			axl::util::Serial(),
-			name(),
-			name_len(0),
+			name(p_name),
 			age(p_age),
 			height(p_height),
 			weight(p_weight)
 		{
-			name_len = axl::util::String::scLength(p_name);
-			name_len = name_len > 35 ? 35 : name_len;
-			axl::util::String::scCopy(p_name, name, name_len+1);
-			axl::util::Serial::Register(name, 36, 0);
-			axl::util::Serial::Register(&name_len, sizeof(name_len), 1);
-			axl::util::Serial::Register(&age, sizeof(age), 2);
-			axl::util::Serial::Register(&height, sizeof(height), 3);
-			axl::util::Serial::Register(&weight, sizeof(weight), 4);
+			axl::util::Serial::Register(name.str(), 0, name.length()+1, 1);
+			axl::util::Serial::Register(&age, 0, sizeof(age), 2);
+			axl::util::Serial::Register(&height, 0, sizeof(height), 3);
+			axl::util::Serial::Register(&weight, 0, sizeof(weight), 4);
+		}
+		bool onSerialize(axl::util::Serial::ObjectInfo& object_info)
+		{
+			switch(object_info.object_id)
+			{
+				case 1:
+					object_info.mem_ptr = this->name.str();
+					object_info.size = this->name.length()+1;
+					return true;
+				default:
+					return true; 
+			}
+		}
+		bool onDeserialize(axl::util::Serial::ObjectInfo object_info)
+		{
+			switch(object_info.object_id)
+			{
+				case 1:
+					if(this->name.resize(object_info.size-1))
+					{
+						return axl::util::Serial::setSize(1, object_info.size);
+					}
+					return false;
+				default:
+					return true; 
+			}
 		}
 	public:
-		char name[36];
-		axl::util::size_t name_len;
+		axl::util::String name;
 		axl::util::uint8 age;
 		float height;
 		float weight;
@@ -42,8 +62,7 @@ int main(int argc, char *argv[])
 		Person person("Axel Eshetu", 23, 1.83f, 52.2f);
 		{
 			using namespace axl::util;
-			Assertv(String::scEqual(person.name, "Axel Eshetu"), verbose);
-			Assertv(person.name_len == 11, verbose);
+			Assertv(person.name == "Axel Eshetu", verbose);
 			Assertv(person.age == 23, verbose);
 			Assertv(person.height == 1.83f, verbose);
 			Assertv(person.weight == 52.2f, verbose);
@@ -54,8 +73,7 @@ int main(int argc, char *argv[])
 			protocol.deserialize(p, data);
 			{
 				using namespace axl::util;
-				Assertv(String::scEqual(p.name, "Axel Eshetu"), verbose);
-				Assertv(p.name_len == 11, verbose);
+				Assertv(person.name == "Axel Eshetu", verbose);
 				Assertv(p.age == 23, verbose);
 				Assertv(p.height == 1.83f, verbose);
 				Assertv(p.weight == 52.2f, verbose);
