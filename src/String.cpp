@@ -314,6 +314,10 @@ String::char_t* String::str()
 {
 	return m_array;
 }
+String::char_t** String::pstr()
+{
+	return &m_array;
+}
 
 void String::destroy()
 {
@@ -513,9 +517,9 @@ bool String::scEquals(const String::char_t* cstr1, const String::char_t* cstr2)
 	if(!cstr1 || !cstr2) return false;
 	for(size_t i = 0; i < (size_t)-1; ++i)
 	{
-		if(cstr1[i] == '\0' && cstr2[i] == '\0')
+		if((cstr1[i] == '\0') && (cstr2[i] == '\0'))
 			return true;
-		else if(cstr1[i] == '\0' ^ cstr2[i] == '\0')
+		else if((cstr1[i] == '\0') ^ (cstr2[i] == '\0'))
 			return false;
 		else if(cstr1[i] != cstr2[i])
 			return false;

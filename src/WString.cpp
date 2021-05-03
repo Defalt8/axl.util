@@ -374,6 +374,10 @@ WString::char_t* WString::wstr()
 {
 	return m_array;
 }
+WString::char_t** WString::pwstr()
+{
+	return &m_array;
+}
 
 void WString::destroy()
 {
@@ -596,9 +600,9 @@ bool WString::scwEquals(const WString::char_t* cwstr1, const WString::char_t* cw
 	if(!cwstr1 || !cwstr2) return false;
 	for(size_t i = 0; i < (size_t)-1; ++i)
 	{
-		if(cwstr1[i] == L'\0' && cwstr2[i] == L'\0')
+		if((cwstr1[i] == L'\0') && (cwstr2[i] == L'\0'))
 			return true;
-		else if(cwstr1[i] == L'\0' ^ cwstr2[i] == L'\0')
+		else if((cwstr1[i] == L'\0') ^ (cwstr2[i] == L'\0'))
 			return false;
 		else if(cwstr1[i] != cwstr2[i])
 			return false;

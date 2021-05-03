@@ -46,6 +46,7 @@ class AXLUTILCXXAPI String
 		bool isNull() const;
 		const char_t* cstr() const;
 		char_t* str();
+		char_t** pstr();
 	public:
 		void destroy();
 		bool resize(size_t new_length);

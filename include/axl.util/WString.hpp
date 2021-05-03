@@ -50,6 +50,7 @@ class AXLUTILCXXAPI WString
 		bool isNull() const;
 		const char_t* cwstr() const;
 		char_t* wstr();
+		char_t** pwstr();
 	public:
 		void destroy();
 		bool resize(size_t new_length);
