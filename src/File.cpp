@@ -54,7 +54,7 @@ String File::getStringContent(const String& filename)
 		fseek(file, 0, SEEK_SET);
 		if(content.resize(size))
 		{
-			size_t read_size = fread(content.str(), sizeof(String::char_t), size, file);
+			size_t read_size = (size_t)fread(content.str(), sizeof(String::char_t), size, file);
 			content[read_size] = '\0';
 			content.length(true);
 		}
