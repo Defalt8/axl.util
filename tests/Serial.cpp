@@ -19,7 +19,7 @@ class Person : public axl::util::Serial
 			axl::util::Serial::Register(&height, 0, sizeof(height), 3);
 			axl::util::Serial::Register(&weight, 0, sizeof(weight), 4);
 		}
-		bool onSerialize(axl::util::Serial::ObjectInfo& object_info)
+		bool onSerialize(axl::util::SerialObjectInfo& object_info)
 		{
 			switch(object_info.object_id)
 			{
@@ -31,7 +31,7 @@ class Person : public axl::util::Serial
 					return true; 
 			}
 		}
-		bool onDeserialize(axl::util::Serial::ObjectInfo object_info)
+		bool onDeserialize(axl::util::SerialObjectInfo object_info)
 		{
 			switch(object_info.object_id)
 			{
