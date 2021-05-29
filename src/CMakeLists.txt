@@ -1,7 +1,16 @@
-
 set( CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE )
-if( BUILD_SHARED_LIBS )
+set( DEBUG_SUFFIX "" )
+set( TYPE_SUFFIX "" )
+
+if( "${AXLUTIL_TYPE}" MATCHES "^[Ss][Hh][Aa][Rr][Ee][Dd]$" OR BUILD_SHARED_LIBS )
 	set( AXLUTIL_TYPE SHARED )
+else()
+	set( AXLUTIL_TYPE STATIC )
+	set( TYPE_SUFFIX s )
+endif()
+
+if( "${CMAKE_BUILD_TYPE}" MATCHES "[Dd][Ee][Bb][Uu][Gg]" )
+	set( DEBUG_SUFFIX d )
 endif()
 
 add_library( axl.util ${AXLUTIL_TYPE}
@@ -51,20 +60,16 @@ target_compile_definitions( axl.util
 	PRIVATE AXLUTIL_VERSION_PATCH=${PROJECT_VERSION_PATCH}
 )
 
-if( "${CMAKE_BUILD_TYPE}" MATCHES "[Dd][Ee][Bb][Uu][Gg]" )
-	target_compile_definitions( axl.util PRIVATE DEBUG )
-	set( DEBUG_SUFFIX d )
-elseif( "${CMAKE_BUILD_TYPE}" MATCHES "[Rr][Ee][Ll]" )
-	target_compile_definitions( axl.util PRIVATE NDEBUG )
-	set( DEBUG_SUFFIX "" )
+if( "${AXLUTIL_TYPE}" STREQUAL "SHARED" )
+	target_compile_definitions( axl.util PUBLIC AXLUTIL_SHARED )
+else()
+	target_compile_definitions( axl.util PUBLIC AXLUTIL_STATIC )
 endif()
 
-if( "${AXLUTIL_TYPE}" STREQUAL "STATIC" )
-	target_compile_definitions( axl.util PUBLIC AXLUTIL_STATIC )
-	set( TYPE_SUFFIX s )
-elseif( "${AXLUTIL_TYPE}" STREQUAL "SHARED" )
-	target_compile_definitions( axl.util PUBLIC AXLUTIL_SHARED )
-	set( TYPE_SUFFIX "" )
+if( "${CMAKE_BUILD_TYPE}" MATCHES "[Dd][Ee][Bb][Uu][Gg]" )
+	target_compile_definitions( axl.util PRIVATE DEBUG )
+elseif( "${CMAKE_BUILD_TYPE}" MATCHES "[Rr][Ee][Ll]" )
+	target_compile_definitions( axl.util PRIVATE NDEBUG )
 endif()
 
 set_target_properties( axl.util PROPERTIES
@@ -73,45 +78,8 @@ set_target_properties( axl.util PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY "${AXLUTIL_ARCHIVE_DIR}"
 	RUNTIME_OUTPUT_DIRECTORY "${AXLUTIL_RUNTIME_DIR}"
 )
-### Install
-if( AXLUTIL_INSTALL_ARCHIVES AND AXLUTIL_INSTALL_BINARIES )
-	install( TARGETS axl.util
-		ARCHIVE DESTINATION "lib"
-		RUNTIME DESTINATION "bin"
-	)
-elseif( AXLUTIL_INSTALL_ARCHIVES )
-	install( TARGETS axl.util ARCHIVE DESTINATION "lib" )
-elseif( AXLUTIL_INSTALL_BINARIES )
-	install( TARGETS axl.util RUNTIME DESTINATION "bin" )
-endif()
 
-if( AXLUTIL_INSTALL_HEADERS )
-	install( FILES 
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/everything.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/lib.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/types.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/String.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/WString.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/File.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/Random.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/Serial.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/Protocol.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/protocols/V0.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/utils.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/allocators.inl"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.inl"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.inl"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.inl"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Clock.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.inl"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Object.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Child.hpp"
-		"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Parent.hpp"
-		DESTINATION "include/axl.util" )
-endif()
+install( TARGETS axl.util
+	ARCHIVE DESTINATION "lib"
+	RUNTIME DESTINATION "bin"
+)
