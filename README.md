@@ -4,7 +4,41 @@ A simple C++ utilities library.
 
 ## Version
 
-- Latest version: 1.8.17
+- Latest version: 1.8.19 alpha
+
+## Requirements
+
+- [CMake](https://cmake.org/) 3.4 or above.
+- Any C and C++ SDK that can be accessed through a command line. ([MSVC](https://visualstudio.microsoft.com/), MinGW) If you have Visual Studio or [CodeBlocks](https://www.codeblocks.org/) then you are set.
+
+## How to get started
+
+- Clone this repo into the a directory and execute these commands to build the library.
+  - `git clone https://github.com/defalt8/axl.util.git`
+  - `cd axl.util`
+  - `mkdir out\\build`
+  - `cmake -B out/build -S .`
+  - or with a generator of your choosing: `cmake -G <generator> -B out/build -S .`
+  - `cmake --build out/build`
+
+## CMake Options
+
+Default values are marked **bold**.
+
+- Library specific options
+  - `AXLUTIL_TYPE`=[**STATIC**|SHARED] - The library type to build. If `BUILD_SHARED_LIBS` is set to `TRUE`, then  the library type will be `SHARED`.
+  - `AXLUTIL_BUILD_TESTS`=[TRUE|FALSE] -- Builds tests by default if the project is being built standalone.
+  - `AXLUTIL_INSTALL_HEADERS`=[TRUE|FALSE] -- installs headers by default if the project is being built standalone.
+  - `AXLUTIL_ARCHIVE_DIR`=`${PROJECT_BINARY_DIR}/lib` -- The path to build library archive outputs to.
+  - `AXLUTIL_RUNTIME_DIR`=`${PROJECT_BINARY_DIR}/bin` -- The path to build library runtime outputs to.
+
+## Including into your CMake projects
+
+- Just set the cmake options listed above *(\*optional)* and include this cmake project into yours.
+  - `set( AXLUTIL_ARCHIVE_DIR ${PROJECT_BINARY_DIR}/lib )`
+  - `set( AXLUTIL_RUNTIME_DIR ${PROJECT_BINARY_DIR}/bin )`
+  - `add_subdirectory( "<path to this project>" axl.util )`
+  - `target_link_libraries( <your_target> PUBLIC axl.util )`
 
 ## Library Headers
 
@@ -25,37 +59,3 @@ A simple C++ utilities library.
 - [include/axl.util/uc/Object.hpp](/include/axl.util/uc/Object.hpp) - Object class to handle object creation and destruction on an interface level.
 - [include/axl.util/uc/Child.hpp](/include/axl.util/uc/Child.hpp) - Child class to handle object relations on an interface level.
 - [include/axl.util/uc/Parent.hpp](/include/axl.util/uc/Parent.hpp) - Child class to handle object relations on an interface level.
-
-## Requirements
-
-- CMake 3.10 or above.
-- Any C and C++ SDK that can be accessed through a command line. (MSVC, MinGW) If you have Visual Studio or CodeBlocks then you are set.
-
-## How to get started
-
-- Clone this repo into the a directory and execute these commands to build the library.
-  - git clone https://github.com/defalt8/axl.util.git
-  - cd axl.util
-  - mkdir out\\build
-  - cd out\\build
-  - cmake -B . -S ../../ (or with a generator of your choosing.) cmake -G \<generator\> -B . -S ../../
-  - cmake --build .
-
-## CMake Options
-
-Default values are marked **bold**.
-
-- Library specific options
-  - AXLUTIL_TYPE=[**STATIC**|SHARED]
-  - AXLUTIL_BUILD_TESTS=[**ON**|OFF]
-  - AXLUTIL_BUILD_TOOLS=[**ON**|OFF]
-  - AXLUTIL_INSTALL_HEADERS=[**ON**|OFF]
-  - AXLUTIL_INSTALL_ARCHIVES=[**ON**|OFF]
-  - AXLUTIL_INSTALL_BINARIES=[**ON**|OFF]
-- General options
-  - BUILD_TESTS=[ON|**OFF**]
-  - BUILD_TOOLS=[ON|**OFF**]
-  - INSTALL_HEADERS=[**ON**|OFF]
-  - INSTALL_ARCHIVES=[**ON**|OFF]
-  - INSTALL_BINARIES=[**ON**|OFF]
-  

@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.10 )
 
-project( axl.util VERSION 1.8.17 DESCRIPTION "A simple C++ utilities library." )
+project( axl.util VERSION 1.8.19 DESCRIPTION "A simple C++ utilities library." )
 
 if( "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}" )
 	set( AXLUTIL_STANDALONE TRUE )
