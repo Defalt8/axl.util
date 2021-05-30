@@ -17,7 +17,11 @@ struct AXLUTILCXXAPI SerialObjectInfo
 	bool operator==(const SerialObjectInfo& serial_object_info) const;
 };
 
-template class AXLUTILCXXAPI axl::util::ds::UniList<SerialObjectInfo>;
+namespace ds {
+
+template class AXLUTILCXXAPI UniList<axl::util::SerialObjectInfo>;
+
+} // axl.util.ds
 
 class AXLUTILCXXAPI Serial
 {

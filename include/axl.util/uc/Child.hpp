@@ -1,11 +1,10 @@
 #pragma once
 #include "../lib.hpp"
+#include "Parent.hpp"
 
 namespace axl {
 namespace util {
 namespace uc {
-
-class AXLUTILCXXAPI Parent;
 
 class AXLUTILCXXAPI Child
 {

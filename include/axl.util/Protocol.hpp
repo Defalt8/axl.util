@@ -3,11 +3,11 @@
 #include "types.hpp"
 #include "ds/Array.hpp"
 #include "ds/List.hpp"
+#include "Serial.hpp"
 
 namespace axl {
 namespace util {
 
-class AXLUTILCXXAPI Serial;
 
 class AXLUTILCXXAPI Protocol
 {
