@@ -37,9 +37,11 @@ public:
 public:
 	virtual ~UniList();
 	UniList();
-	UniList(const UniList<V>& node);
+	UniList(const UniList<V>& unilist);
+	UniList(UniList<V>&& unilist);
 public:
 	UniList<V>& operator=(const UniList<V>& unilist);
+	UniList<V>& operator=(UniList<V>&& unilist);
 public:
 	size_t count() const;
 	Iterator first() const;
