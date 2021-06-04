@@ -215,6 +215,18 @@ typename UniList<V>::Iterator UniList<V>::positionOf(const V& value) const
 }
 
 template <typename V>
+typename UniList<V>::Iterator UniList<V>::at(size_t index) const
+{
+	if(index >= this->m_count) return UniList<V>::Iterator();
+	Iterator it((UniList<V>*)this, this->m_first);
+	for(; it.m_node != (UniNode<V>*)0; ++it, --index)
+	{
+		if(index == 0) break;
+	}
+	return it;
+}
+
+template <typename V>
 bool UniList<V>::isEmpty() const
 {
 	return (UniNode<V>*)0 == this->m_first;

@@ -48,6 +48,7 @@ public:
 	Iterator end() const;
 	Iterator last() const;
 	Iterator positionOf(const V& value) const;
+	Iterator at(size_t index) const;
 	bool isEmpty() const;
 	template <typename T = V>
 	bool insertFirst(const T& value);
