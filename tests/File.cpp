@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 		Assertv(File::getWStringContent("LICENSE") == WString(LICENSE_STR), verbose);
 	}
 	
-	if(Assert::_num_failed_tests > 0) puts("----------------------------------------");
-	printf("# %d Failed!\n", Assert::_num_failed_tests);
-	return Assert::_num_failed_tests;
+	if(assert::_num_failed_tests > 0) puts("----------------------------------------");
+	printf("# %d Failed!\n", assert::_num_failed_tests);
+	return assert::_num_failed_tests;
 }

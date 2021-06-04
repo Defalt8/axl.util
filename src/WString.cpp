@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cstdarg>
+#include <wchar.h>
 #include <axl.util/lib.hpp>
 #include <axl.util/WString.hpp>
 #include <axl.util/String.hpp>
