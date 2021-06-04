@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <wchar.h>
 #include "Assert.hpp"
 #include "lib.hpp"
 #include <axl.util/WString.hpp>
@@ -961,7 +962,7 @@ int main(int argc, char *argv[])
 			Assertv(0 == strcmp(str.cstr(), "Hello Mars!"), verbose);
 		}
 	}
-	if(Assert::_num_failed_tests > 0) puts("----------------------------------------");
-	printf("# %d Failed!\n", Assert::_num_failed_tests);
-	return Assert::_num_failed_tests;
+	if(assert::_num_failed_tests > 0) puts("----------------------------------------");
+	printf("# %d Failed!\n", assert::_num_failed_tests);
+	return assert::_num_failed_tests;
 }

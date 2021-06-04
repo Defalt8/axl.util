@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 		}
 		int x = 0;
 	}
-	if(axl::Assert::_num_failed_tests > 0 || verbose) puts("----------------------------------------");
-	printf("# %d Failed!\n", axl::Assert::_num_failed_tests);
-	return axl::Assert::_num_failed_tests;
+	if(axl::assert::_num_failed_tests > 0 || verbose) puts("----------------------------------------");
+	printf("# %d Failed!\n", axl::assert::_num_failed_tests);
+	return axl::assert::_num_failed_tests;
 }
