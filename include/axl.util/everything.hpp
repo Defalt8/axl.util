@@ -16,6 +16,7 @@
 #include "ds/Array.hpp"
 #include "ds/Node.hpp"
 #include "ds/List.hpp"
+#include "ds/Map.hpp"
 
 // Utility classes
 #include "uc/Clock.hpp"

@@ -45,6 +45,7 @@ add_library( axl.util ${AXLUTIL_TYPE}
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Array.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Node.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/List.hpp"
+	"${AXLUTIL_INCLUDE_DIR}/axl.util/ds/Map.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Tracer.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Clock.hpp"
 	"${AXLUTIL_INCLUDE_DIR}/axl.util/uc/Time.hpp"

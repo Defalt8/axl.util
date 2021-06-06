@@ -7,6 +7,7 @@ add_executable( "axl.util.wstring" "WString.cpp" )
 add_executable( "axl.util.file" "File.cpp" )
 add_executable( "axl.util.array" "ds/Array.cpp" )
 add_executable( "axl.util.list" "ds/List.cpp" )
+add_executable( "axl.util.map" "ds/Map.cpp" )
 add_executable( "axl.util.node" "ds/Node.cpp" )
 add_executable( "axl.util.serial" "Serial.cpp" )
 
@@ -17,6 +18,7 @@ set_target_properties(
 	"axl.util.file"
 	"axl.util.array"
 	"axl.util.list"
+	"axl.util.map"
 	"axl.util.node"
 	"axl.util.serial"
 	PROPERTIES
