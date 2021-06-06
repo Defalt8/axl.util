@@ -29,6 +29,8 @@ public:
 		bool isNull() const;
 		bool isNotNull() const;
 		UniList<V>* list() const;
+		V& value(); 
+		const V& value() const; 
 	private:
 		UniList<V> *m_list;
 		UniNode<V> *m_node;

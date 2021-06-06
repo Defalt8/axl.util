@@ -119,6 +119,20 @@ UniList<V>* UniList<V>::Iterator::list() const
 	return this->m_list;
 }
 
+template <typename V>
+V& UniList<V>::Iterator::value()
+{
+	if(!m_node) throw "Null pointer exception";
+	return m_node->value;
+}
+
+template <typename V>
+const V& UniList<V>::Iterator::value() const
+{
+	if(!m_node) throw "Null pointer exception";
+	return m_node->value;
+} 
+
 //
 // UniList
 //
