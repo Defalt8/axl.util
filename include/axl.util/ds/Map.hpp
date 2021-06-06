@@ -69,6 +69,10 @@ class Map
 		void removeAll();
 		bool set(const KeyType& key, const ValueType& value);
 		bool get(const KeyType& key, ValueType*const out_value) const;
+		UniList<KeyType>& keys();
+		const UniList<KeyType>& keys() const;
+		UniList<ValueType>& values();
+		const UniList<ValueType>& values() const;
 	protected:
 		UniList<KeyType> map_keys;
 		UniList<ValueType> map_values;

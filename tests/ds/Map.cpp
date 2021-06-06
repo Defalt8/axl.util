@@ -227,6 +227,48 @@ int main(int argc, char *argv[])
 				Assertv(map.get('F', &value), verbose);
 				Assertv(value == 5, verbose);
 			}
+			{ // keys and values
+				Map<char, int> map(genMap0(6));
+				UniList<char>& keys = map.keys();
+				UniList<int>& values = map.values();
+				Assertv(keys.count() == 6, verbose);
+				Assertv(values.count() == 6, verbose);
+				int i = 0;
+				for(UniList<char>::Iterator it = keys.first(); it.isNotNull(); ++it, ++i)
+				{
+					Assertv(it.value() == 'A' + i, verbose);
+					it.value() = 'J' + i;
+				}
+				i = 0;
+				for(UniList<int>::Iterator it = values.first(); it.isNotNull(); ++it, ++i)
+				{
+					Assertv(it.value() == i, verbose);
+					it.value() = i * 2;
+				}
+				i = 0;
+				for(Map<char,int>::Iterator it = map.first(); it.isNotNull(); ++it, ++i)
+				{
+					Assertv(it.key() == 'J' + i, verbose);
+					Assertv(it.value() == i*2, verbose);
+				}
+			}
+			{ // constant keys and values
+				const Map<char, int> map(genMap0(6));
+				const UniList<char>& keys = map.keys();
+				const UniList<int>& values = map.values();
+				Assertv(keys.count() == 6, verbose);
+				Assertv(values.count() == 6, verbose);
+				int i = 0;
+				for(UniList<char>::Iterator it = keys.first(); it.isNotNull(); ++it, ++i)
+				{
+					Assertv(it.value() == 'A' + i, verbose);
+				}
+				i = 0;
+				for(UniList<int>::Iterator it = values.first(); it.isNotNull(); ++it, ++i)
+				{
+					Assertv(it.value() == i, verbose);
+				}
+			}
 		}
 		
 	}

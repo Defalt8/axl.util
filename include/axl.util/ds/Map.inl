@@ -316,6 +316,27 @@ bool Map<KeyType,ValueType>::get(const KeyType& key, ValueType*const out_value) 
 	return false;
 }
 
+template <typename KeyType, typename ValueType>
+UniList<KeyType>& Map<KeyType,ValueType>::keys()
+{
+	return map_keys;
+}
+template <typename KeyType, typename ValueType>
+const UniList<KeyType>& Map<KeyType,ValueType>::keys() const
+{
+	return map_keys;
+}
+template <typename KeyType, typename ValueType>
+UniList<ValueType>& Map<KeyType,ValueType>::values()
+{
+	return map_values;
+}
+template <typename KeyType, typename ValueType>
+const UniList<ValueType>& Map<KeyType,ValueType>::values() const
+{
+	return map_values;
+}
+
 
 } // axl.util.ds
 } // axl.util
