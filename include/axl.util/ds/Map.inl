@@ -9,18 +9,18 @@ namespace ds {
 //
 
 template <typename KeyType, typename ValueType>
-Map<KeyType,ValueType>::Iterator::Iterator(Map<KeyType, ValueType> *map,
-	typename const UniList<KeyType>::Iterator& key_it,
-	typename const UniList<ValueType>::Iterator& value_it) :
-	m_map(map),
-	m_key_it(key_it),
-	m_value_it(value_it)
+Map<KeyType,ValueType>::Iterator::Iterator(Map<KeyType, ValueType> *_map,
+	const typename UniList<KeyType>::Iterator& _key_it,
+	const typename UniList<ValueType>::Iterator& _value_it) :
+	m_map(_map),
+	m_key_it(_key_it),
+	m_value_it(_value_it)
 {}
 template <typename KeyType, typename ValueType>
 Map<KeyType,ValueType>::Iterator::Iterator(const Iterator& iterator) :
-	m_map(iterator.map),
-	m_key_it(iterator.key_it),
-	m_value_it(iterator.value_it)
+	m_map(iterator.m_map),
+	m_key_it(iterator.m_key_it),
+	m_value_it(iterator.m_value_it)
 {}
 template <typename KeyType, typename ValueType>
 typename Map<KeyType,ValueType>::Iterator Map<KeyType,ValueType>::Iterator::operator+(size_t offset) const
@@ -81,7 +81,7 @@ typename UniList<KeyType>::Iterator& Map<KeyType, ValueType>::Iterator::keyIt()
 	return m_key_it;
 }
 template <typename KeyType, typename ValueType>
-typename const UniList<KeyType>::Iterator& Map<KeyType, ValueType>::Iterator::keyIt() const
+const typename UniList<KeyType>::Iterator& Map<KeyType, ValueType>::Iterator::keyIt() const
 {
 	return m_key_it;
 }
@@ -91,7 +91,7 @@ typename UniList<ValueType>::Iterator& Map<KeyType, ValueType>::Iterator::valueI
 	return m_value_it;
 }
 template <typename KeyType, typename ValueType>
-typename const UniList<ValueType>::Iterator& Map<KeyType, ValueType>::Iterator::valueIt() const
+const typename UniList<ValueType>::Iterator& Map<KeyType, ValueType>::Iterator::valueIt() const
 {
 	return m_value_it;
 }
@@ -172,8 +172,8 @@ Map<KeyType,ValueType>& Map<KeyType,ValueType>::operator=(const Map<KeyType,Valu
 template <typename KeyType, typename ValueType>
 ValueType& Map<KeyType,ValueType>::operator[](const KeyType& key)
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 			return value_it.value();
@@ -184,8 +184,8 @@ ValueType& Map<KeyType,ValueType>::operator[](const KeyType& key)
 template <typename KeyType, typename ValueType>
 const ValueType& Map<KeyType,ValueType>::operator[](const KeyType& key) const
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 			return value_it.value();
@@ -221,25 +221,25 @@ typename Map<KeyType,ValueType>::Iterator Map<KeyType,ValueType>::last() const
 template <typename KeyType, typename ValueType>
 typename Map<KeyType,ValueType>::Iterator Map<KeyType,ValueType>::positionOf(const KeyType& key) const
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 			return Iterator((Map<KeyType,ValueType>*)this, key_it, value_it);
 	}
-	return Iterator((Map<KeyType,ValueType>*)this, UniList<KeyType>::Iterator(), UniList<ValueType>::Iterator());
+	return Iterator((Map<KeyType,ValueType>*)this, typename UniList<KeyType>::Iterator(), typename UniList<ValueType>::Iterator());
 }
 
 template <typename KeyType, typename ValueType>
 typename Map<KeyType,ValueType>::Iterator Map<KeyType,ValueType>::at(size_t index) const
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it, --index)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it, --index)
 	{
 		if(index == 0)
 			return Iterator((Map<KeyType,ValueType>*)this, key_it, value_it);
 	}
-	return Iterator((Map<KeyType,ValueType>*)this, UniList<KeyType>::Iterator(), UniList<ValueType>::Iterator());
+	return Iterator((Map<KeyType,ValueType>*)this, typename UniList<KeyType>::Iterator(), typename UniList<ValueType>::Iterator());
 }
 
 template <typename KeyType, typename ValueType>
@@ -251,8 +251,8 @@ bool Map<KeyType,ValueType>::isEmpty() const
 template <typename KeyType, typename ValueType>
 bool Map<KeyType,ValueType>::add(const KeyType& key, const ValueType& value)
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 			return false;
@@ -263,8 +263,8 @@ bool Map<KeyType,ValueType>::add(const KeyType& key, const ValueType& value)
 template <typename KeyType, typename ValueType>
 bool Map<KeyType,ValueType>::remove(const KeyType& key)
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 			return map_keys.removeAt(key_it) && map_values.removeAt(value_it);
@@ -288,8 +288,8 @@ void Map<KeyType,ValueType>::removeAll()
 template <typename KeyType, typename ValueType>
 bool Map<KeyType,ValueType>::set(const KeyType& key, const ValueType& value)
 {
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 		{
@@ -304,8 +304,8 @@ template <typename KeyType, typename ValueType>
 bool Map<KeyType,ValueType>::get(const KeyType& key, ValueType*const out_value) const
 {
 	if(!out_value) return false;
-	UniList<ValueType>::Iterator value_it = map_values.first();
-	for(UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
+	typename UniList<ValueType>::Iterator value_it = map_values.first();
+	for(typename UniList<KeyType>::Iterator key_it = map_keys.first(); key_it.isNotNull() && value_it.isNotNull(); ++key_it, ++value_it)
 	{
 		if(key_it.value() == key)
 		{
