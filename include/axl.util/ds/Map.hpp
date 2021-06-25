@@ -15,8 +15,8 @@ class Map
 		{
 			public:
 				Iterator(Map<KeyType, ValueType> *map = 0,
-					typename const UniList<KeyType>::Iterator& key_it = UniList<KeyType>::Iterator(),
-					typename const UniList<ValueType>::Iterator& value_it = UniList<ValueType>::Iterator());
+					const typename UniList<KeyType>::Iterator& key_it = typename UniList<KeyType>::Iterator(),
+					const typename UniList<ValueType>::Iterator& value_it = typename UniList<ValueType>::Iterator());
 				Iterator(const Iterator& iterator);
 				Iterator operator+(size_t offset) const;
 				Iterator& operator+=(size_t offset);
@@ -28,9 +28,9 @@ class Map
 				bool isNotNull() const;
 				Map<KeyType, ValueType>* map() const;
 				typename UniList<KeyType>::Iterator& keyIt();
-				typename const UniList<KeyType>::Iterator& keyIt() const;
+				const typename UniList<KeyType>::Iterator& keyIt() const;
 				typename UniList<ValueType>::Iterator& valueIt();
-				typename const UniList<ValueType>::Iterator& valueIt() const;
+				const typename UniList<ValueType>::Iterator& valueIt() const;
 				KeyType& key();
 				const KeyType& key() const;
 				ValueType& value();
