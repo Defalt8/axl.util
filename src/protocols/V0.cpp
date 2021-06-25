@@ -91,7 +91,7 @@ bool V0::deserialize(Serial& serial, const axl::util::ds::Array<byte, axl::util:
 	uint32 r_total_size = htonl(refer<uint32>(&serial_data[0]));
 	uint32 r_object_count = htonl(refer<uint32>(&serial_data[4]));
 	if(r_total_size < total_size || r_object_count != object_count) return false;
-	size_t object_index = 0, header_size = (8 + object_count * 8);
+	size_t object_index = 0; // header_size = (8 + object_count * 8)
 	for(axl::util::ds::UniList<SerialObjectInfo>::Iterator it = object_registry.first(); it != object_registry.end(); ++it)
 	{
 		size_t size = htonl(refer<uint32>(&serial_data[8 + object_index * 8]));

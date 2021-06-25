@@ -8,8 +8,8 @@ namespace util {
 // Random8
 
 Random8::Random8(Random8::rand_t seed) :
-    m_last(0),
-    seed(seed)
+    seed(seed),
+    m_last(0)
 {}
 
 Random8::rand_t Random8::random()
@@ -28,8 +28,8 @@ Random8::rand_t Random8::range(Random8::rand_t min, Random8::rand_t max)
 // Random16
 
 Random16::Random16(Random16::rand_t seed) :
-    m_last(0),
-    seed(seed)
+    seed(seed),
+    m_last(0)
 {}
 
 Random16::rand_t Random16::random()
@@ -46,8 +46,8 @@ Random16::rand_t Random16::range(Random16::rand_t min, Random16::rand_t max)
 // Random32
 
 Random32::Random32(Random32::rand_t seed) :
-    m_last(0),
-    seed(seed)
+    seed(seed),
+    m_last(0)
 {}
 
 Random32::rand_t Random32::random()

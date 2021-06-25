@@ -15,8 +15,8 @@ WString::char_t*const WString::NullWStr = (WString::char_t*const)0;
 const WString::char_t WString::NullWChar = (WString::char_t)L'\0';
 
 WString::WString(size_t length) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = length + 1U;
 	if(size == 0)
@@ -32,8 +32,8 @@ WString::WString(size_t length) :
 	}
 }
 WString::WString(const WString::char_t* cwstring) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = scwLength(cwstring) + 1U;
 	if(size == 0)
@@ -51,8 +51,8 @@ WString::WString(const WString::char_t* cwstring) :
 	}
 }
 WString::WString(const WString::char_t* cstring, size_t length, size_t offset) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = length + 1U;
 	if(size == 0)
@@ -70,8 +70,8 @@ WString::WString(const WString::char_t* cstring, size_t length, size_t offset) :
 	}
 }
 WString::WString(const WString& tocopy) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = tocopy.m_length + 1U;
 	if(size == 0)
@@ -89,8 +89,8 @@ WString::WString(const WString& tocopy) :
 	}
 }
 WString::WString(const WString& tocopy, size_t length, size_t offset) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t tocopy_len = (offset <= tocopy.m_length ? (tocopy.m_length - offset) : 0U);
 	const size_t size = (offset <= tocopy.m_length ? ((length > tocopy_len ? tocopy_len : length) + 1U) : 1U);
@@ -109,8 +109,8 @@ WString::WString(const WString& tocopy, size_t length, size_t offset) :
 	}
 }
 WString::WString(const String& tocopy) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = tocopy.length() + 1U;
 	if(size == 0)
@@ -128,8 +128,8 @@ WString::WString(const String& tocopy) :
 	}
 }
 WString::WString(const String& tocopy, size_t length, size_t offset) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t str_len = tocopy.length();
 	const size_t tocopy_len = (offset <= str_len ? (str_len - offset) : 0U);
@@ -150,9 +150,9 @@ WString::WString(const String& tocopy, size_t length, size_t offset) :
 }
 #if (__cplusplus >= 201103)
 WString::WString(WString&& tomove) :
-	m_size(tomove.m_size),
+	m_array(tomove.m_array),
 	m_length(tomove.m_length),
-	m_array(tomove.m_array)
+	m_size(tomove.m_size)
 {
 	tomove.m_array = NullWStr;
 }

@@ -7,9 +7,9 @@ namespace util {
 namespace uc {
 
 Clock::Clock(millis_t _interval) :
+	interval(_interval),
 	m_first_time(true),
-	m_clock(0),
-	interval(_interval)
+	m_clock(0)
 {
 	this->reset();
 }

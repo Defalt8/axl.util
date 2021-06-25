@@ -13,8 +13,8 @@ String::char_t*const String::NullStr = (String::char_t*)0;
 const String::char_t String::NullChar = (String::char_t)'\0';
 
 String::String(size_t length) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = length + 1U;
 	if(size == 0)
@@ -30,8 +30,8 @@ String::String(size_t length) :
 	}
 }
 String::String(const String::char_t* cstring) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = scLength(cstring) + 1U;
 	if(size == 0)
@@ -49,8 +49,8 @@ String::String(const String::char_t* cstring) :
 	}
 }
 String::String(const String::char_t* cstring, size_t length, size_t offset) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = length + 1U;
 	if(size == 0)
@@ -68,8 +68,8 @@ String::String(const String::char_t* cstring, size_t length, size_t offset) :
 	}
 }
 String::String(const String& tocopy) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t size = tocopy.m_length + 1U;
 	if(size == 0)
@@ -87,8 +87,8 @@ String::String(const String& tocopy) :
 	}
 }
 String::String(const String& tocopy, size_t length, size_t offset) :
-	m_size(0U),
-	m_length(0U)
+	m_length(0U),
+	m_size(0U)
 {
 	const size_t tocopy_len = (offset <= tocopy.m_length ? (tocopy.m_length - offset) : 0U);
 	const size_t size = (offset <= tocopy.m_length ? ((length > tocopy_len ? tocopy_len : length) + 1U) : 1U);
@@ -108,9 +108,9 @@ String::String(const String& tocopy, size_t length, size_t offset) :
 }
 #if (__cplusplus >= 201103)
 String::String(String&& tomove) :
-	m_size(tomove.m_size),
+	m_array(tomove.m_array),
 	m_length(tomove.m_length),
-	m_array(tomove.m_array)
+	m_size(tomove.m_size)
 {
 	tomove.m_array = NullStr;
 }

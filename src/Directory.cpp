@@ -1,8 +1,8 @@
 #include <cstdlib>
 #if defined(WIN32) || defined(_WIN32)
 #	include <Windows.h>
+#	include <tchar.h>
 #endif
-#include <tchar.h>
 #include <axl.util/Directory.hpp>
 
 namespace axl {

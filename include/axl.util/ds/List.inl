@@ -145,16 +145,16 @@ UniList<V>::~UniList()
 
 template <typename V>
 UniList<V>::UniList() :
-	m_count(),
 	m_first(),
-	m_last()
+	m_last(),
+	m_count()
 {}
 
 template <typename V>
 UniList<V>::UniList(const UniList<V>& unilist) :
-	m_count(),
 	m_first(),
-	m_last()
+	m_last(),
+	m_count()
 {
 	for(UniList<V>::Iterator it = unilist.first(); it.isNotNull(); ++it)
 		this->insertLast((*it));
@@ -162,9 +162,9 @@ UniList<V>::UniList(const UniList<V>& unilist) :
 
 template <typename V>
 UniList<V>::UniList(UniList<V>&& unilist) :
-	m_count(unilist.m_count),
 	m_first(unilist.m_first),
-	m_last(unilist.m_last)
+	m_last(unilist.m_last),
+	m_count(unilist.m_count)
 {
 	unilist.m_count = 0;
 	unilist.m_first = 0;
@@ -316,9 +316,9 @@ bool UniList<V>::insertAfterValue(const T& value, const V& after_value)
 template <typename V>
 V UniList<V>::removeFirst()
 {
-	V value;
 	if(this->m_first)
 	{
+		V value;
 		UniNode<V>* first = this->m_first;
 		value = this->m_first->value;
 		if(this->m_first == this->m_last)
@@ -332,8 +332,9 @@ V UniList<V>::removeFirst()
 		delete first;
 		if(this->m_count <= 0) throw "List element count is off.";
 		--this->m_count;
+		return value;
 	}
-	return value;
+	return V();
 }
 
 template <typename V>
